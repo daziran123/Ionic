@@ -1,0 +1,65 @@
+
+<ion-header>
+  <ion-navbar>
+      <!-- <ion-title>此处名字显示，是和对方聊天的动态名字，所以要绑定{{}}</ion-title> -->
+      <ion-title>{{chatUserName}}</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <div class="message-wrap">
+
+    <!-- 右边消息 -->
+    <!-- 小节回顾，1.思考如何动态控制 聊天窗口动态判断，2.引入了css -->
+   <!-- 通过控制right 和left 控制左右  如何动态控制-->
+
+
+   <div class="message right" *ngFor="let m of messageList"> 
+    <img [src]='m.user-imgUrl' class="user-img">
+    <div class="msg-detail">
+    <div class="msg-info">  
+      <p>{{m.userName}}&nbsp;{{m.time}}</p>
+    </div>
+    <div class="msg-content">
+      <p class="line-breaker">{{m.message}}</p>
+    </div>
+  </div>
+  </div>
+    <!-- <div class="message right"> 要用ngfor 来进行循环了
+      <img src="" class="user-img">
+      <div class="msg-detail">
+      <div class="msg-info">  
+        <p>大力&nbsp;1分钟前</p>
+      </div>
+      <div class="msg-content">
+        <p class="line-breaker">这是消息的内容</p>
+      </div>
+    </div>
+    </div> -->
+
+
+  </div>
+</ion-content>
+<!-- 底部放footer里，加一些样式 -->
+<ion-footer no-border [style.height]="isOpenEmojiPicker?'255px':'55px'">
+<!-- grid  flex 布局，row  一行  col-12 行布局 -->
+<ion-grid class="input-wrap">
+    <!-- ion-row一行  col-12 算一行可以切分 -->
+  <ion-row> 
+  <ion-col col-2>
+   <button ion-button clear icon-only item-right (click)="switchEmojiPicker()">
+     <ion-icon name="md-happy"></ion-icon>
+    </button>
+  </ion-col>
+  <ion-col col-8>
+    <ion-textarea placeholder="请输入内容"></ion-textarea>
+  </ion-col>
+  <ion-col col-2>
+    <button ion-button clear ion-only item-right>
+      <ion-icon name="send"></ion-icon>
+    </button>
+
+  </ion-col>
+  </ion-row>
+</ion-grid>
+<emojipicker *ngIf="isOpenEmojiPicker"></emojipicker>
+</ion-footer>

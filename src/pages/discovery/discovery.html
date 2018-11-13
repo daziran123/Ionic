@@ -1,0 +1,50 @@
+
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>发现页面</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+<ion-refresher (ionRefresh)="doRefresh($event)" (click)="gotoDetails(q.IdentityId)">
+<ion-refresher-content 
+pullingIcon="arrow-down"   
+pullingText="下拉刷新" 
+refreshingSpinner="circles"
+refreshingText="数据加载中">
+<!-- pullingIcon="arrow-down"     下拉
+pullingText="下拉刷新"   下拉的文字
+refreshingSpinner="circles"  下拉圈圈
+refreshingText="数据加载中">下拉时的文字 
+下拉的时候怎么加载数据呢？-->
+
+</ion-refresher-content>
+
+</ion-refresher>
+  <!-- 拿到card 的循环 -->
+  <!-- 发现页面的逻辑添加，主要学习下拉刷新组件的一些事件  -->
+  
+    <ion-card *ngFor="let q of questions">
+        <ion-item>
+          <ion-avatar item-start>
+           <img src="{{q.HeadFace}}">
+          </ion-avatar>
+          <p>{{q.UserNickName}}发表的问题
+            <ion-icon class="more_button" name="more"></ion-icon>
+          </p>
+          </ion-item>
+          <h2>{{q.ContentTitle}}</h2>
+          <ion-card-content>
+            <p>{{q.ContentSunnary}}</p>
+          </ion-card-content>
+          <ion-row> 
+          <ion-col col-8 center text-left>
+            <ion-note>
+              {{q.LikeCount}}100赞同&nbsp;&nbsp;&nbsp;&nbsp;20{{q.ComentCount}} &nbsp;评论&nbsp;&nbsp;关注问题
+            </ion-note>
+          </ion-col>
+          <ion-col col-4></ion-col>
+          </ion-row>
+        </ion-card>
+</ion-content>

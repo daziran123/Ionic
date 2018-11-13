@@ -1,0 +1,23 @@
+
+<ion-header>
+  <ion-navbar>
+    <ion-title>chat</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+<ion-list>
+    <ion-item [navPush]="ChatdetailsPage" [navParams]="userinfo">
+        <!-- [navParams]="userinfo" userinfo 后台定义，userinfo:objet;  在
+          constructor 构造 直接在api 接口或者其他的方法实现用户列表的定义 
+            this.userinfo={
+              userid:"123321",
+              username:'名字'
+            }传参方式 -->
+<ion-avatar item-left>
+  <img src="">
+</ion-avatar>
+    <h2>魔女</h2>
+    <p>给大家展示聊天软件的开发</p>
+  </ion-item>
+</ion-list>
+</ion-content>

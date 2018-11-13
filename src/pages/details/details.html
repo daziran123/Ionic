@@ -1,0 +1,41 @@
+<!--
+  Generated template for the DetailsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+
+   <!-- question? 处理可空对象，也叫安全导航 -->
+    <ion-title>{{question?.ContentTitle}}</ion-title>
+
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+<ion-card>
+  <ion-card-content>
+    {{question?.ContentTitle}}
+  <p> {{question?.LikeCount}} 个关注&nbsp;&nbsp;{{question?.CommentCount}} 个回答</p>
+  <button ion-button small color="secondary" [disabled]="isMyQuestion" (click)="showAnswerPage()"><ion-icon name="add" ></ion-icon>&nbsp;回答</button>
+  &nbsp;&nbsp;<button ion-button small (click)="saveFavourite()">{{isFavourite ?'取消关注':'关注'}}</button>
+  </ion-card-content>
+</ion-card>
+<ion-card *ngFor="let a  of answers">
+    <ion-item>
+      <ion-avatar item-start>
+       <img src="{{a.HeadFace}}">
+      </ion-avatar>
+      <p>大力{{a.UserNickName}}</p>
+      </ion-item>
+      <ion-card-content>
+        <p>用户回答内容{{a.Content}}</p>
+        <p class="answer_data">2018-09-16{{a.CreateDateTime}}</p>
+      </ion-card-content>
+
+    </ion-card>
+</ion-content>
