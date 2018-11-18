@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {  NavController, NavParams,Content ,TextInput} from 'ionic-angular';
+import {  NavController, NavParams,Content ,TextInput,Events} from 'ionic-angular';
 import {Storage} from '@Ionic/storage';
 import { ChatserviceProvider, ChatMessage} from '../../providers/chatservice/chatservice'
 import { RestProvider } from '../../providers/rest/rest';
@@ -29,6 +29,7 @@ export class ChatdetailsPage{
     public navParams: NavParams,
     public rest:RestProvider,
     public storage:Storage,
+    public event:Events,
     public chatservice:ChatserviceProvider){
  
     this.chatUserName=navParams.get('username');
@@ -52,12 +53,18 @@ this.storage.get('UserId').then((val)=>{
       },
       error=>this.errorMessage=<any>error);
   }
-})
+});
 
      this.getMessages()
      .then(()=>{
        this.scrollToBottom();
      });
+
+      //听取消息的发布
+      this.event.subscribe('chat.received',(msg,time)=>{
+        this.messageList.push(msg);
+        this.scrollToBottom()
+      })
    }
 
   
@@ -97,7 +104,7 @@ return this.chatservice.getMessageList()
   getMessageIndex(id:string) {
    return this.messageList.findIndex(e=>e.messageId===id);
   }
-
+//  发送信息逻辑
  sendMessage(){
 if(!this.editorMessage.trim())
 return;
@@ -127,6 +134,10 @@ this.chatservice.sendMessage(messageSend)
     this.messageList[index].status='success';
   }
 });
+}
+ionViewWillLeave(){
+  // 告诉我要走了 不听了
+  this.event.unsubscribe('chat.received');
 }
 
   focus(){

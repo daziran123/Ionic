@@ -31,6 +31,7 @@ import { ChatdetailsPage } from '../pages/chatdetails/chatdetails';
 import { EmojiProvider } from '../providers/emoji/emoji';
 import {ComponentsModule} from '../components/components.module'
 import { ChatserviceProvider } from '../providers/chatservice/chatservice';
+import { RelativetimePipe } from '../pipes/relativetime/relativetime';
 @NgModule({
   declarations: [
     MyApp,
@@ -48,7 +49,7 @@ import { ChatserviceProvider } from '../providers/chatservice/chatservice';
     QuestionPage,
     ChatdetailsPage,
     DetailsPage,
-  
+    RelativetimePipe,
     
     
   ],

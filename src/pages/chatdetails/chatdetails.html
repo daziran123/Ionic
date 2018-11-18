@@ -17,9 +17,10 @@
   > 
    <!-- 动态调整位置 -->
     <img [src]="m.userImgUrl" class="user-img">
+    <ion-spinner name="dots" *ngIf="m.status==='pending'"></ion-spinner>
     <div class="msg-detail">
     <div class="msg-info">  
-      <p>{{m.username}}&nbsp;{{m.time}}</p>
+      <p>{{m.username}}&nbsp;{{m.time | relativetime}}</p>
     </div>
     <div class="msg-content">
       <p class="line-breaker">{{m.message}}</p>
