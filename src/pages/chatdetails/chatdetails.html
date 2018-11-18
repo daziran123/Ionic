@@ -6,22 +6,25 @@
   </ion-navbar>
 </ion-header>
 <ion-content>
-  <div class="message-wrap">
-
-    <!-- 右边消息 -->
+<div class="message-wrap">
+   <!-- 右边消息 -->
     <!-- 小节回顾，1.思考如何动态控制 聊天窗口动态判断，2.引入了css -->
    <!-- 通过控制right 和left 控制左右  如何动态控制-->
 
-
-   <div class="message right" *ngFor="let m of messageList"> 
-    <img [src]='m.user-imgUrl' class="user-img">
+   <div class="message" *ngFor="let m of messageList"
+   [class.left]="m.userId===chatUserId"
+   [class.right]="m.userId===userId" 
+  > 
+   <!-- 动态调整位置 -->
+    <img [src]="m.userImgUrl" class="user-img">
     <div class="msg-detail">
     <div class="msg-info">  
-      <p>{{m.userName}}&nbsp;{{m.time}}</p>
+      <p>{{m.username}}&nbsp;{{m.time}}</p>
     </div>
     <div class="msg-content">
       <p class="line-breaker">{{m.message}}</p>
     </div>
+  </div>
   </div>
   </div>
     <!-- <div class="message right"> 要用ngfor 来进行循环了
@@ -36,8 +39,6 @@
     </div>
     </div> -->
 
-
-  </div>
 </ion-content>
 <!-- 底部放footer里，加一些样式 -->
 <ion-footer no-border [style.height]="isOpenEmojiPicker?'255px':'55px'">
@@ -51,10 +52,13 @@
     </button>
   </ion-col>
   <ion-col col-8>
-    <ion-textarea placeholder="请输入内容"></ion-textarea>
+    <ion-textarea #chatInput [(ngModel)]="editorMessage" 
+    (keyup.enter)="sendMessage()" 
+    (focus)="focus()"
+    placeholder="请输入内容"></ion-textarea>
   </ion-col>
   <ion-col col-2>
-    <button ion-button clear ion-only item-right>
+    <button ion-button clear ion-only item-right (click)="sendMessage()">
       <ion-icon name="send"></ion-icon>
     </button>
 
