@@ -45,7 +45,7 @@ private apiUrlSaveFavourite='https://imoocqa.gugujiankong.com/api/question/savef
  * @returns {Observable<string[]>}
  * @memberof RestProvider
  */
-
+private apiUrlUserNotifications="https://imoocqa.gugujiankong.com/api/account/usernotifications"
   
  
  
@@ -102,6 +102,10 @@ return this.getUrlReturn(this.apiUrlGetQuestionWithUser+"?id="+questionId+"&user
   }
 
 
+
+  getUserNotifications(userId):Observable<string[]>{
+return this.getUrlReturn(this.apiUrlUserNotifications+"?userid="+userId);
+  }
   getQuestions():Observable<string[]>{
     return this.getUrlReturn(this.apiUrlQuestionList);
  }

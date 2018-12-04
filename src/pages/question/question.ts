@@ -54,9 +54,9 @@ errorMessage:any;
         .subscribe(f=>{
           if(f["Status"]=="OK"){
                     loading.dismissAll();
-                    this.dismiss();
+                    // this.dismiss();
           }else{
-            loading.dismissAll();
+            // loading.dismissAll();
             super.showToast(this.toastCtrl,f["StatusContent"]);
           }
           

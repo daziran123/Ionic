@@ -44,7 +44,7 @@ super();
     .subscribe(
       q=>{
         this.questions=q;
-        loading.dismiss();
+        // loading.dismiss();
       },
       error=>this.errorMessage=<any>error);
 }

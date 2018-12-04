@@ -4,6 +4,7 @@ import {Storage} from '@Ionic/storage';
 import { ChatserviceProvider, ChatMessage} from '../../providers/chatservice/chatservice'
 import { RestProvider } from '../../providers/rest/rest';
 import {ViewChild} from '@angular/core'
+
 // @IonicPage()
 @Component({
   selector: 'page-chatdetails',
@@ -21,8 +22,8 @@ export class ChatdetailsPage{
   messageList:ChatMessage[]=[]; // =[] 意思是初始的是空 
   errorMessage:any;
   editorMessage:string;
-  @ViewChild(Content) content:Content;
-  @ViewChild('chatInput') messageInput:TextInput;
+  @ViewChild(Content) content:Content;  //全局的content
+  @ViewChild('chatInput') messageInput:TextInput; //获取前台的输入框
   // 定义
   constructor(
     public navCtrl: NavController, 
@@ -127,6 +128,7 @@ this.editorMessage='';
 if(!this.isOpenEmojiPicker){
   this.messageInput.setFocus();
 }
+//发送消息并改变消息的状态
 this.chatservice.sendMessage(messageSend)
 .then(()=>{
   let index=this.getMessageIndex(id);

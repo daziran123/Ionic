@@ -1,25 +1,54 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { 
+  IonicPage,
+  NavController, 
+  NavParams,
+  LoadingController,
+  ToastController} from 'ionic-angular';
+import { Storage } from "@ionic/storage";
+import { RestProvider } from '../../providers/rest/rest';
+import { BaseUI } from '../common/baseui';
+import { DetailsPage } from '../details/details';
 
-/**
- * Generated class for the NotificationPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
+// 通知的消息后台保存回答，关注的时候自动生成的消息数据，前台只要通过api获取即可
 @IonicPage()
 @Component({
   selector: 'page-notification',
   templateUrl: 'notification.html',
 })
-export class NotificationPage {
+export class NotificationPage extends BaseUI {
+  errorMessage: any;
+  notificationList:string[];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams,
+    public rest:RestProvider,
+    public storage:Storage,
+    public loadingCtrl:LoadingController,
+    public toastCtrl:ToastController,
+  ) {
+    super()
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad NotificationPage');
+    this.storage.get('UserId').then((val)=>{
+      if(val!=null){
+  var loading=super.showLoading(this.loadingCtrl,"加载中...");
+  this.rest.getUserNotifications(val)//从后台获取到的uid 
+  .subscribe(
+  n=>{
+    this.notificationList=n;
+
+    loading.dismissAll();
+  },error=>this.errorMessage=<any>error);
+      }
+    })
   }
 
+  gotoDetails(questionId){
+    this.navCtrl.push(DetailsPage,{id:questionId});
+      }
 }
