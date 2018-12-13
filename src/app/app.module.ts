@@ -32,6 +32,7 @@ import { EmojiProvider } from '../providers/emoji/emoji';
 import {ComponentsModule} from '../components/components.module'
 import { ChatserviceProvider } from '../providers/chatservice/chatservice';
 import { RelativetimePipe } from '../pipes/relativetime/relativetime';
+import { SettingsProvider } from '../providers/settings/settings';
 @NgModule({
   declarations: [
     MyApp,
@@ -97,6 +98,7 @@ backButtonText:'返回',
     FilePath,
     EmojiProvider,
     ChatserviceProvider,
+    SettingsProvider,
   ]
 })
 export class AppModule {}

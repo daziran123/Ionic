@@ -6,14 +6,9 @@ import { BaseUI } from '../common/baseui';
 import { RestProvider } from '../../providers/rest/rest';
 import {UserPage} from '../user/user';
 import {UserdatalistPage} from '../userdatalist/userdatalist';
-/**
- * Generated class for the MorePage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-// IonicPage,
-// @IonicPage()
+import { SettingsProvider } from '../../providers/settings/settings';
+
+
 @Component({
   selector: 'page-more',
   templateUrl: 'more.html',
@@ -23,6 +18,7 @@ export class MorePage extends BaseUI {
     public logined:boolean=false;
     headface:string;
     userinfo:string[];
+  selectedTheme: string;
     constructor(
      public navCtrl: NavController,
      public navParams: NavParams,
@@ -30,8 +26,10 @@ export class MorePage extends BaseUI {
      public storage:Storage,
      public loadingCtrl:LoadingController,
      public rest:RestProvider,
+     private settings:SettingsProvider,
     ) {
       super();
+      this.settings.getActiveTheme().subscribe(val=>this.selectedTheme=val)
   }
 // 学习的本质就是重复
   // ionViewDidLoad() { 这个是生命周期，暂时用不到先注释掉
@@ -80,5 +78,15 @@ gotoDataList(type){
 }
 gotoUserPage(){
   this.navCtrl.push(UserPage)
+}
+
+toggleChangeTheme(){
+if(this.selectedTheme === 'dark-theme')
+{ 
+  this.settings.setActiveTheme('light-theme');
+}
+else{
+  this.settings.setActiveTheme('dark-theme');
+}
 }
 }

@@ -9,7 +9,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class UserdatalistPage {
   dataType: string;
-  title: string;
+  title: string;y
 
   constructor(
     public navCtrl: NavController, 

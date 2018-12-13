@@ -40,6 +40,7 @@ $colors: (
   light:      #f4f4f4,
   dark:       #222,
   orange:    orange,
+  purple:    purple,
 );
 
 
@@ -88,4 +89,7 @@ $colors: (
 @import "roboto";
 @import "noto-sans";
 //导入 自定义样式
-@import "light" ;
+
+// 切换两套主题
+@import "theme.light";
+@import "theme.dark";
