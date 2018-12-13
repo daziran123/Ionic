@@ -38,9 +38,9 @@ this.id=navParams.get('id');//接受传递过来的参数
   ionViewDidLoad() {
     console.log('ionViewDidLoad AnswerPage');
   }
-dismiss(){
-  this.viewCtrl.dismiss();
-}
+// dismiss(){
+//   this.viewCtrl.dismiss();
+// }
 submit(){
     this.storage.get('UserId').then((val)=>{
       if(val!=null){
@@ -49,10 +49,10 @@ submit(){
         .subscribe(f=>{
                 if(f["Status"]=="OK"){
                 loading.dismissAll();
-                this.dismiss();
+                // this.dismiss();
                 
                 }else{
-                loading.dismissAll();
+                // loading.dismissAll();
                 super.showToast(this.toastCtrl,f["StatusContent"]);
                 }
         },error=>this.errorMessage=<any>error);

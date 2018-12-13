@@ -25,12 +25,12 @@ private apiUrlRegister='https://imoocqa.gugujiankong.com/api/account/register';
 private apiUrlLogin='https://imoocqa.gugujiankong.com/api/account/login';
 private apiUrlUserInfo='https://imoocqa.gugujiankong.com/api/account/userinfo';
 private apiUrlUpdateNickName='https://imoocqa.gugujiankong.com/api/account/updatenickname';
-
+private apiGetUserQuestionList='https://imoocqa.gugujiankong.com/api/account/getuserquestionlist';
 //question
 
 private apiUrlQuestionSave='https://imoocqa.gugujiankong.com/api/question/save';
 
-private apiUrlQuestionList='https://imoocqa.gugujiankong.com/api/question/list?index=1&number=10;';
+private apiUrlQuestionList='https://imoocqa.gugujiankong.com/api/question/list?index=1&number=10';
 private apiUrlGetQuestion='https://imoocqa.gugujiankong.com/api/question/get';
 private apiUrlAnswer='https://imoocqa.gugujiankong.com/api/question/answer';
 private apiUrlGetQuestionWithUser='https://imoocqa.gugujiankong.com/api/question/getwithuser';
@@ -45,7 +45,7 @@ private apiUrlSaveFavourite='https://imoocqa.gugujiankong.com/api/question/savef
  * @returns {Observable<string[]>}
  * @memberof RestProvider
  */
-private apiUrlUserNotifications="https://imoocqa.gugujiankong.com/api/account/usernotifications"
+private apiUrlUserNotifications="https://imoocqa.gugujiankong.com/api/account/usernotifications";
   
  
  
@@ -103,12 +103,38 @@ return this.getUrlReturn(this.apiUrlGetQuestionWithUser+"?id="+questionId+"&user
 
 
 
-  getUserNotifications(userId):Observable<string[]>{
+ /**
+  *获取用户的提醒消息
+  *
+  * @param {*} userId
+  * @returns {Observable<string[]>}
+  * @memberof RestProvider
+  */
+ getUserNotifications(userId):Observable<string[]>{
 return this.getUrlReturn(this.apiUrlUserNotifications+"?userid="+userId);
   }
-  getQuestions():Observable<string[]>{
+/**
+ *
+ *获取所有的新问题
+ * @returns {Observable<string[]>}
+ * @memberof RestProvider
+ */
+getQuestions():Observable<string[]>{
     return this.getUrlReturn(this.apiUrlQuestionList);
  }
+
+ /**
+  *获取用户的相关问题列表
+  *
+  * @param {*} userId
+  * @param {*} type  question/answer/favourite
+  * @returns {Observable<string[]>}
+  * @memberof RestProvider
+  */
+ getUserQuestionList(userId,type): Observable<string[]>{
+  return this.getUrlReturn(this.apiGetUserQuestionList + "?userid=" + userId + "&type=" + type);
+}
+ 
 
 /**
  *h回到问题接口

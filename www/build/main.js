@@ -34,6 +34,214 @@ webpackEmptyAsyncContext.id = 190;
 
 /***/ }),
 
+/***/ 23:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return RestProvider; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_http__ = __webpack_require__(130);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__ = __webpack_require__(449);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_map__ = __webpack_require__(78);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_map__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_catch__ = __webpack_require__(247);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_catch___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_catch__);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+/*
+  Generated class for the RestProvider provider.
+
+  See https://angular.io/guide/dependency-injection for more info on providers
+  and Angular DI.
+*/
+var RestProvider = (function () {
+    function RestProvider(http) {
+        // console.log('Hello RestProvider Provider');
+        this.http = http;
+        //feed
+        this.apiUrlFeeds = 'https://imoocqa.gugujiankong.com/api/feeds/get';
+        //account
+        this.apiUrlRegister = 'https://imoocqa.gugujiankong.com/api/account/register';
+        this.apiUrlLogin = 'https://imoocqa.gugujiankong.com/api/account/login';
+        this.apiUrlUserInfo = 'https://imoocqa.gugujiankong.com/api/account/userinfo';
+        this.apiUrlUpdateNickName = 'https://imoocqa.gugujiankong.com/api/account/updatenickname';
+        this.apiGetUserQuestionList = 'https://imoocqa.gugujiankong.com/api/account/getuserquestionlist';
+        //question
+        this.apiUrlQuestionSave = 'https://imoocqa.gugujiankong.com/api/question/save';
+        this.apiUrlQuestionList = 'https://imoocqa.gugujiankong.com/api/question/list?index=1&number=10';
+        this.apiUrlGetQuestion = 'https://imoocqa.gugujiankong.com/api/question/get';
+        this.apiUrlAnswer = 'https://imoocqa.gugujiankong.com/api/question/answer';
+        this.apiUrlGetQuestionWithUser = 'https://imoocqa.gugujiankong.com/api/question/getwithuser';
+        this.apiUrlSaveFavourite = 'https://imoocqa.gugujiankong.com/api/question/savefavourite';
+        /**
+         *根据用户的手机号码和密码进行登陆
+         * 注意安全性方面要有详细的设计和处理，
+         * //密码的传递应该在传递参数之前经行加密，
+         * 并且服务端也要做相应的处理
+         * @param {*} mobile
+         * @param {*} password
+         * @returns {Observable<string[]>}
+         * @memberof RestProvider
+         */
+        this.apiUrlUserNotifications = "https://imoocqa.gugujiankong.com/api/account/usernotifications";
+    }
+    RestProvider.prototype.login = function (mobile, password) {
+        return this.getUrlReturn(this.apiUrlLogin + "?mobile=" + mobile + "&password=" + password);
+    };
+    // login 方法会返回observable 的 一个对象，就会调用 this.getUrlReturn的方法
+    // 然后做一些 url 的拼接，两个参数是前边传递进来的
+    RestProvider.prototype.register = function (mobile, nickname, password) {
+        return this.getUrlReturn(this.apiUrlRegister + "?mobile=" + mobile + "&nickname=" + nickname + "&password=" + password);
+    };
+    RestProvider.prototype.getUserInfo = function (userId) {
+        return this.getUrlReturn(this.apiUrlUserInfo + "?userId=" + userId);
+    };
+    RestProvider.prototype.updateNickName = function (userId, nickname) {
+        return this.getUrlReturn(this.apiUrlUpdateNickName + "?userid=" + userId + "&nickname" + nickname);
+    };
+    RestProvider.prototype.saveQuestion = function (userId, title, content) {
+        return this.getUrlReturn(this.apiUrlQuestionSave + "?userid=" + userId + "&title=" + title + "&content=" + content);
+    };
+    RestProvider.prototype.saveFavourite = function (questionId, userId) {
+        return this.getUrlReturn(this.apiUrlSaveFavourite + "?questionid=" + questionId + "&userid=" + userId);
+    };
+    /**
+     *获取问题详情
+     *
+     * @param {*} id
+     * @returns {Observable<string[]>}
+     * @memberof RestProvider
+     */
+    RestProvider.prototype.getQuestion = function (id) {
+        return this.getUrlReturn(this.apiUrlGetQuestion + "?id=" + id);
+    };
+    /**
+     *获取问题的详情，传递userid 获取到当前用户有没有关注此问题
+     *
+     * @param {*} questionId
+     * @param {*} userId
+     * @returns {Observable<string[]>}
+     * @memberof RestProvider
+     */
+    RestProvider.prototype.getQuestionWithUser = function (questionId, userId) {
+        return this.getUrlReturn(this.apiUrlGetQuestionWithUser + "?id=" + questionId + "&userid=" + userId);
+    };
+    //feeds  被关注了，被回答了，会通知你 
+    RestProvider.prototype.getFeeds = function () {
+        return this.getUrlReturn(this.apiUrlFeeds);
+    };
+    /**
+     *获取用户的提醒消息
+     *
+     * @param {*} userId
+     * @returns {Observable<string[]>}
+     * @memberof RestProvider
+     */
+    RestProvider.prototype.getUserNotifications = function (userId) {
+        return this.getUrlReturn(this.apiUrlUserNotifications + "?userid=" + userId);
+    };
+    /**
+     *
+     *获取所有的新问题
+     * @returns {Observable<string[]>}
+     * @memberof RestProvider
+     */
+    RestProvider.prototype.getQuestions = function () {
+        return this.getUrlReturn(this.apiUrlQuestionList);
+    };
+    /**
+     *获取用户的相关问题列表
+     *
+     * @param {*} userId
+     * @param {*} type  question/answer/favourite
+     * @returns {Observable<string[]>}
+     * @memberof RestProvider
+     */
+    RestProvider.prototype.getUserQuestionList = function (userId, type) {
+        return this.getUrlReturn(this.apiGetUserQuestionList + "?userid=" + userId + "&type=" + type);
+    };
+    /**
+     *h回到问题接口
+     *
+     * @param {*} userId
+     * @param {*} questionId
+     * @param {*} content
+     * @returns {Observable<string[]>}
+     * @memberof RestProvider
+     */
+    RestProvider.prototype.answer = function (userId, questionId, content) {
+        return this.getUrlReturn(this.apiUrlAnswer + "?userid" + userId + "&questionid=" + questionId + "&content=" + content);
+    };
+    /*
+    /*   全局获取HTTP 请求方法
+    工号：大力
+    *  @private
+    *  @param{string}url
+     @return {observable<string>[]}
+       @memberof RestProvider
+    */
+    RestProvider.prototype.getUrlReturn = function (url) {
+        return this.http.get(url)
+            .map(this.extractData)
+            .catch(this.handleError);
+    };
+    /**
+     *处理接口返回的数据，处理成JSON 格式
+     *
+     * @private
+     * @param {Response} res
+     * @returns
+     * @memberof RestProvider
+     */
+    RestProvider.prototype.extractData = function (res) {
+        var body = res.json();
+        return JSON.parse(body) || {};
+    };
+    /**
+     *处理请求中的错误，考虑了各种情况的错误处理并在console 中显示erro
+     *
+     * @private
+     * @param {(Response| any)} error
+     * @returns
+     * @memberof RestProvider
+     */
+    RestProvider.prototype.handleError = function (error) {
+        var errMsg;
+        if (error instanceof __WEBPACK_IMPORTED_MODULE_0__angular_http__["c" /* Response */]) {
+            var body = error.json() || '';
+            var err = body.error || JSON.stringify(body);
+            errMsg = error.status + "-" + (error.statusText || '') + err;
+        }
+        else {
+            errMsg = error.message ? error.message : error.toString();
+        }
+        console.error(errMsg);
+        return __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__["Observable"].throw(errMsg);
+    };
+    RestProvider = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["B" /* Injectable */])(),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_0__angular_http__["a" /* Http */]])
+    ], RestProvider);
+    return RestProvider;
+}());
+
+//# sourceMappingURL=rest.js.map
+
+/***/ }),
+
 /***/ 235:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -69,7 +277,7 @@ var TabsPage = (function () {
         this.tabMore = __WEBPACK_IMPORTED_MODULE_5__more_more__["a" /* MorePage */];
     }
     TabsPage = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({template:/*ion-inline-start:"F:\ck\project\Ionic\04-01\src\pages\tabs\tabs.html"*/'<ion-tabs selectedIndex="2">\n  <ion-tab [root]="tabHome" tabTitle="首页" tabIcon="list-box"></ion-tab>\n  <ion-tab [root]="tabDiscovery" tabTitle="发现" tabIcon="navigate"></ion-tab>\n  <ion-tab [root]="tabChat" tabTitle="聊天" tabIcon="chatbubbles"></ion-tab>\n  <ion-tab [root]="tabNotification" tabTitle="通知" tabIcon="notifications"></ion-tab>\n  <ion-tab [root]="tabMore" tabTitle="更多" tabIcon="menu"></ion-tab>\n</ion-tabs>\n'/*ion-inline-end:"F:\ck\project\Ionic\04-01\src\pages\tabs\tabs.html"*/
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({template:/*ion-inline-start:"F:\ck\project\Ionic\04-01\src\pages\tabs\tabs.html"*/'<ion-tabs selectedIndex="4">\n  <ion-tab [root]="tabHome" tabTitle="首页" tabIcon="list-box"></ion-tab>\n  <ion-tab [root]="tabDiscovery" tabTitle="发现" tabIcon="navigate"></ion-tab>\n  <ion-tab [root]="tabChat" tabTitle="聊天" tabIcon="chatbubbles"></ion-tab>\n  <ion-tab [root]="tabNotification" tabTitle="通知" tabIcon="notifications"></ion-tab>\n  <ion-tab [root]="tabMore" tabTitle="更多" tabIcon="menu"></ion-tab>\n</ion-tabs>\n'/*ion-inline-end:"F:\ck\project\Ionic\04-01\src\pages\tabs\tabs.html"*/
         }),
         __metadata("design:paramtypes", [])
     ], TabsPage);
@@ -86,7 +294,7 @@ var TabsPage = (function () {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ChatPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__chatdetails_chatdetails__ = __webpack_require__(237);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -133,10 +341,10 @@ var ChatPage = (function () {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ChatdetailsPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(17);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Ionic_storage__ = __webpack_require__(36);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Ionic_storage__ = __webpack_require__(31);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_chatservice_chatservice__ = __webpack_require__(239);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_rest_rest__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_rest_rest__ = __webpack_require__(23);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -269,20 +477,24 @@ var ChatdetailsPage = (function () {
     };
     __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_13" /* ViewChild */])(__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* Content */]),
-        __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* Content */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* Content */]) === "function" && _a || Object)
+        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* Content */])
     ], ChatdetailsPage.prototype, "content", void 0);
     __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_13" /* ViewChild */])('chatInput'),
-        __metadata("design:type", typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* TextInput */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* TextInput */]) === "function" && _b || Object)
+        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* TextInput */])
     ], ChatdetailsPage.prototype, "messageInput", void 0);
     ChatdetailsPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
             selector: 'page-chatdetails',template:/*ion-inline-start:"F:\ck\project\Ionic\04-01\src\pages\chatdetails\chatdetails.html"*/'\n<ion-header>\n  <ion-navbar>\n      <!-- <ion-title>此处名字显示，是和对方聊天的动态名字，所以要绑定{{}}</ion-title> -->\n      <ion-title>{{chatUserName}}</ion-title>\n  </ion-navbar>\n</ion-header>\n<ion-content>\n<div class="message-wrap">\n   <!-- 右边消息 -->\n    <!-- 小节回顾，1.思考如何动态控制 聊天窗口动态判断，2.引入了css -->\n   <!-- 通过控制right 和left 控制左右  如何动态控制-->\n\n   <div class="message" *ngFor="let m of messageList"\n   [class.left]="m.userId===chatUserId"\n   [class.right]="m.userId===userId" \n  > \n   <!-- 动态调整位置 -->\n    <img [src]="m.userImgUrl" class="user-img">\n    <ion-spinner name="dots" *ngIf="m.status===\'pending\'"></ion-spinner>\n    <div class="msg-detail">\n    <div class="msg-info">  \n      <p>{{m.username}}&nbsp;{{m.time | relativetime}}</p>\n    </div>\n    <div class="msg-content">\n      <p class="line-breaker">{{m.message}}</p>\n    </div>\n  </div>\n  </div>\n  </div>\n    <!-- <div class="message right"> 要用ngfor 来进行循环了\n      <img src="" class="user-img">\n      <div class="msg-detail">\n      <div class="msg-info">  \n        <p>大力&nbsp;1分钟前</p>\n      </div>\n      <div class="msg-content">\n        <p class="line-breaker">这是消息的内容</p>\n      </div>\n    </div>\n    </div> -->\n\n</ion-content>\n<!-- 底部放footer里，加一些样式 -->\n<ion-footer no-border [style.height]="isOpenEmojiPicker?\'255px\':\'55px\'">\n<!-- grid  flex 布局，row  一行  col-12 行布局 -->\n<ion-grid class="input-wrap">\n    <!-- ion-row一行  col-12 算一行可以切分 -->\n  <ion-row> \n  <ion-col col-2>\n   <button ion-button clear icon-only item-right (click)="switchEmojiPicker()">\n     <ion-icon name="md-happy"></ion-icon>\n    </button>\n  </ion-col>\n  <ion-col col-8>\n    <ion-textarea #chatInput [(ngModel)]="editorMessage" \n    (keyup.enter)="sendMessage()" \n    (focus)="focus()"\n    placeholder="请输入内容"></ion-textarea>\n  </ion-col>\n  <ion-col col-2>\n    <button ion-button clear ion-only item-right (click)="sendMessage()">\n      <ion-icon name="send"></ion-icon>\n    </button>\n\n  </ion-col>\n  </ion-row>\n</ion-grid>\n<emojipicker *ngIf="isOpenEmojiPicker"></emojipicker>\n</ion-footer>\n'/*ion-inline-end:"F:\ck\project\Ionic\04-01\src\pages\chatdetails\chatdetails.html"*/,
         }),
-        __metadata("design:paramtypes", [typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_4__providers_rest_rest__["a" /* RestProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__providers_rest_rest__["a" /* RestProvider */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_2__Ionic_storage__["b" /* Storage */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__Ionic_storage__["b" /* Storage */]) === "function" && _f || Object, typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["c" /* Events */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["c" /* Events */]) === "function" && _g || Object, typeof (_h = typeof __WEBPACK_IMPORTED_MODULE_3__providers_chatservice_chatservice__["a" /* ChatserviceProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__providers_chatservice_chatservice__["a" /* ChatserviceProvider */]) === "function" && _h || Object])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */],
+            __WEBPACK_IMPORTED_MODULE_4__providers_rest_rest__["a" /* RestProvider */],
+            __WEBPACK_IMPORTED_MODULE_2__Ionic_storage__["b" /* Storage */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["c" /* Events */],
+            __WEBPACK_IMPORTED_MODULE_3__providers_chatservice_chatservice__["a" /* ChatserviceProvider */]])
     ], ChatdetailsPage);
     return ChatdetailsPage;
-    var _a, _b, _c, _d, _e, _f, _g, _h;
 }());
 
 //# sourceMappingURL=chatdetails.js.map
@@ -298,8 +510,8 @@ var ChatdetailsPage = (function () {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ChatserviceProvider; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(130);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(17);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_map__ = __webpack_require__(77);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_map__ = __webpack_require__(78);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_map__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -393,200 +605,17 @@ var ChatserviceProvider = (function () {
 
 /***/ }),
 
-/***/ 24:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return RestProvider; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_http__ = __webpack_require__(130);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__ = __webpack_require__(448);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_map__ = __webpack_require__(77);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_map__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_catch__ = __webpack_require__(247);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_catch___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_catch__);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-
-
-/*
-  Generated class for the RestProvider provider.
-
-  See https://angular.io/guide/dependency-injection for more info on providers
-  and Angular DI.
-*/
-var RestProvider = (function () {
-    function RestProvider(http) {
-        // console.log('Hello RestProvider Provider');
-        this.http = http;
-        //feed
-        this.apiUrlFeeds = 'https://imoocqa.gugujiankong.com/api/feeds/get';
-        //account
-        this.apiUrlRegister = 'https://imoocqa.gugujiankong.com/api/account/register';
-        this.apiUrlLogin = 'https://imoocqa.gugujiankong.com/api/account/login';
-        this.apiUrlUserInfo = 'https://imoocqa.gugujiankong.com/api/account/userinfo';
-        this.apiUrlUpdateNickName = 'https://imoocqa.gugujiankong.com/api/account/updatenickname';
-        //question
-        this.apiUrlQuestionSave = 'https://imoocqa.gugujiankong.com/api/question/save';
-        this.apiUrlQuestionList = 'https://imoocqa.gugujiankong.com/api/question/list?index=1&number=10;';
-        this.apiUrlGetQuestion = 'https://imoocqa.gugujiankong.com/api/question/get';
-        this.apiUrlAnswer = 'https://imoocqa.gugujiankong.com/api/question/answer';
-        this.apiUrlGetQuestionWithUser = 'https://imoocqa.gugujiankong.com/api/question/getwithuser';
-        this.apiUrlSaveFavourite = 'https://imoocqa.gugujiankong.com/api/question/savefavourite';
-        /**
-         *根据用户的手机号码和密码进行登陆
-         * 注意安全性方面要有详细的设计和处理，
-         * //密码的传递应该在传递参数之前经行加密，
-         * 并且服务端也要做相应的处理
-         * @param {*} mobile
-         * @param {*} password
-         * @returns {Observable<string[]>}
-         * @memberof RestProvider
-         */
-        this.apiUrlUserNotifications = "https://imoocqa.gugujiankong.com/api/account/usernotifications";
-    }
-    RestProvider.prototype.login = function (mobile, password) {
-        return this.getUrlReturn(this.apiUrlLogin + "?mobile=" + mobile + "&password=" + password);
-    };
-    // login 方法会返回observable 的 一个对象，就会调用 this.getUrlReturn的方法
-    // 然后做一些 url 的拼接，两个参数是前边传递进来的
-    RestProvider.prototype.register = function (mobile, nickname, password) {
-        return this.getUrlReturn(this.apiUrlRegister + "?mobile=" + mobile + "&nickname=" + nickname + "&password=" + password);
-    };
-    RestProvider.prototype.getUserInfo = function (userId) {
-        return this.getUrlReturn(this.apiUrlUserInfo + "?userId=" + userId);
-    };
-    RestProvider.prototype.updateNickName = function (userId, nickname) {
-        return this.getUrlReturn(this.apiUrlUpdateNickName + "?userid=" + userId + "&nickname" + nickname);
-    };
-    RestProvider.prototype.saveQuestion = function (userId, title, content) {
-        return this.getUrlReturn(this.apiUrlQuestionSave + "?userid=" + userId + "&title=" + title + "&content=" + content);
-    };
-    RestProvider.prototype.saveFavourite = function (questionId, userId) {
-        return this.getUrlReturn(this.apiUrlSaveFavourite + "?questionid=" + questionId + "&userid=" + userId);
-    };
-    /**
-     *获取问题详情
-     *
-     * @param {*} id
-     * @returns {Observable<string[]>}
-     * @memberof RestProvider
-     */
-    RestProvider.prototype.getQuestion = function (id) {
-        return this.getUrlReturn(this.apiUrlGetQuestion + "?id=" + id);
-    };
-    /**
-     *获取问题的详情，传递userid 获取到当前用户有没有关注此问题
-     *
-     * @param {*} questionId
-     * @param {*} userId
-     * @returns {Observable<string[]>}
-     * @memberof RestProvider
-     */
-    RestProvider.prototype.getQuestionWithUser = function (questionId, userId) {
-        return this.getUrlReturn(this.apiUrlGetQuestionWithUser + "?id=" + questionId + "&userid=" + userId);
-    };
-    //feeds  被关注了，被回答了，会通知你 
-    RestProvider.prototype.getFeeds = function () {
-        return this.getUrlReturn(this.apiUrlFeeds);
-    };
-    RestProvider.prototype.getUserNotifications = function (userId) {
-        return this.getUrlReturn(this.apiUrlUserNotifications + "?userid=" + userId);
-    };
-    RestProvider.prototype.getQuestions = function () {
-        return this.getUrlReturn(this.apiUrlQuestionList);
-    };
-    /**
-     *h回到问题接口
-     *
-     * @param {*} userId
-     * @param {*} questionId
-     * @param {*} content
-     * @returns {Observable<string[]>}
-     * @memberof RestProvider
-     */
-    RestProvider.prototype.answer = function (userId, questionId, content) {
-        return this.getUrlReturn(this.apiUrlAnswer + "?userid" + userId + "&questionid=" + questionId + "&content=" + content);
-    };
-    /*
-    /*   全局获取HTTP 请求方法
-    工号：大力
-    *  @private
-    *  @param{string}url
-     @return {observable<string>[]}
-       @memberof RestProvider
-    */
-    RestProvider.prototype.getUrlReturn = function (url) {
-        return this.http.get(url)
-            .map(this.extractData)
-            .catch(this.handleError);
-    };
-    /**
-     *处理接口返回的数据，处理成JSON 格式
-     *
-     * @private
-     * @param {Response} res
-     * @returns
-     * @memberof RestProvider
-     */
-    RestProvider.prototype.extractData = function (res) {
-        var body = res.json();
-        return JSON.parse(body) || {};
-    };
-    /**
-     *处理请求中的错误，考虑了各种情况的错误处理并在console 中显示erro
-     *
-     * @private
-     * @param {(Response| any)} error
-     * @returns
-     * @memberof RestProvider
-     */
-    RestProvider.prototype.handleError = function (error) {
-        var errMsg;
-        if (error instanceof __WEBPACK_IMPORTED_MODULE_0__angular_http__["c" /* Response */]) {
-            var body = error.json() || '';
-            var err = body.error || JSON.stringify(body);
-            errMsg = error.status + "-" + (error.statusText || '') + err;
-        }
-        else {
-            errMsg = error.message ? error.message : error.toString();
-        }
-        console.error(errMsg);
-        return __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__["Observable"].throw(errMsg);
-    };
-    RestProvider = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["B" /* Injectable */])(),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_0__angular_http__["a" /* Http */]])
-    ], RestProvider);
-    return RestProvider;
-}());
-
-//# sourceMappingURL=rest.js.map
-
-/***/ }),
-
 /***/ 264:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return HomePage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__question_question__ = __webpack_require__(265);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__common_baseui__ = __webpack_require__(30);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_rest_rest__ = __webpack_require__(24);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__details_details__ = __webpack_require__(83);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__common_baseui__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_rest_rest__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__details_details__ = __webpack_require__(63);
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -663,10 +692,12 @@ var HomePage = (function (_super) {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
             selector: 'page-home',template:/*ion-inline-start:"F:\ck\project\Ionic\04-01\src\pages\home\home.html"*/'<ion-header>\n  <!-- toolbar 是有一个包裹 -->\n  <ion-toolbar class="searchbar-input" >\n      <ion-searchbar placeholder="搜索:请输入搜索内容" class="searchbal"></ion-searchbar>\n      <ion-icon name="text" class="top_header_message_icon" (click)="gotoChat()"></ion-icon>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n  <div class="floatMenu">\n    <ion-grid>\n      <ion-row>\n        <ion-col col-4 text-center>\n            <div (tap)="gotoQuestion()">\n              <ion-icon name="create">提问</ion-icon>\n            </div>\n        </ion-col>\n        <ion-col col-4 text-center>\n            <div (tap)="gotoQuestion()"><span style="float:left; color:#ddd">|</span>\n                <ion-icon name="albums">回答</ion-icon>\n              </div>\n        </ion-col>\n        <ion-col col-4 text-center>\n            <div (tap)="gotoQuestion()">\n              <span style="float:left;color:#ddd">|</span>\n                <ion-icon name="share-alt">分享</ion-icon>\n              </div>\n        </ion-col>\n      </ion-row> \n    </ion-grid>\n  </div>\n  <ion-card   *ngFor="let f of feeds"  (click)="gotoDetails(f.IdentityId)">\n  <ion-item>\n    <ion-avatar item-start>\n     <img src="{{f.HeadFace}}">\n    </ion-avatar>\n    <p>{{f.UserNickName}}回答该问题\n      <ion-icon class="more_button" name="more"></ion-icon>\n    </p>\n    </ion-item>\n    <h2>{{f.ContentTitle}}这是一个问题的的标题</h2>\n    <ion-card-content>\n      <p>{{f.ContentSummary}}文章的内容</p>\n    </ion-card-content>\n    <ion-row> \n    <ion-col col-8 center text-left>\n      <ion-note>\n        100{{f.LikeCount}} 赞同&nbsp;&nbsp;&nbsp;&nbsp;20{{f.CommentCount}} &nbsp;评论&nbsp;&nbsp;关注问题\n      </ion-note>\n    </ion-col>\n    <ion-col col-4></ion-col>\n    </ion-row>\n  </ion-card>\n</ion-content>\n'/*ion-inline-end:"F:\ck\project\Ionic\04-01\src\pages\home\home.html"*/
         }),
-        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* ModalController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* ModalController */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* LoadingController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* LoadingController */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_4__providers_rest_rest__["a" /* RestProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__providers_rest_rest__["a" /* RestProvider */]) === "function" && _d || Object])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* ModalController */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* LoadingController */],
+            __WEBPACK_IMPORTED_MODULE_4__providers_rest_rest__["a" /* RestProvider */]])
     ], HomePage);
     return HomePage;
-    var _a, _b, _c, _d;
 }(__WEBPACK_IMPORTED_MODULE_3__common_baseui__["a" /* BaseUI */]));
 
 //# sourceMappingURL=home.js.map
@@ -679,10 +710,10 @@ var HomePage = (function (_super) {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return QuestionPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(17);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_rest_rest__ = __webpack_require__(24);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_storage__ = __webpack_require__(36);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__common_baseui__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_rest_rest__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_storage__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__common_baseui__ = __webpack_require__(28);
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -731,9 +762,9 @@ var QuestionPage = (function (_super) {
     QuestionPage.prototype.ionViewDidLoad = function () {
         console.log('ionViewDidLoad QuestionPage');
     };
-    QuestionPage.prototype.dismiss = function () {
-        this.viewCtrl.dismiss();
-    };
+    // dismiss(){
+    //   this.viewCtrl.dismiss();
+    // }
     QuestionPage.prototype.submitQuestion = function () {
         // 先获取userid  需要做一些构造
         var _this = this;
@@ -764,10 +795,15 @@ var QuestionPage = (function (_super) {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
             selector: 'page-question',template:/*ion-inline-start:"F:\ck\project\Ionic\04-01\src\pages\question\question.html"*/'<!--\n  Generated template for the QuestionPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n<ion-navbar>\n    <ion-title>提问</ion-title>\n <ion-buttons start>\n\n  <button ion-button (click)="dismiss()">\n    <span ion-text color="primary" showWhen="ios">取消</span>\n    <ion-icon name="md-close" showWhen="android"></ion-icon>\n  </button>\n</ion-buttons>\n</ion-navbar>\n</ion-header>\n<ion-content>\n<ion-list>\n <ion-item>\n   <ion-label stacked>问题标题</ion-label>\n   <ion-input type="text" [(ngModel)]="title"></ion-input>\n </ion-item> \n <ion-item>\n <ion-label stacked>问题内容</ion-label>\n <ion-textarea type="text" rows="5" [(ngModel)]="content"></ion-textarea>\n</ion-item>\n</ion-list>\n<div padding>\n  <button ion-button color="primary"  block (click)="submitQuestion()">提问</button>\n</div>\n\n</ion-content>\n'/*ion-inline-end:"F:\ck\project\Ionic\04-01\src\pages\question\question.html"*/,
         }),
-        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["o" /* ViewController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["o" /* ViewController */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_2__providers_rest_rest__["a" /* RestProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__providers_rest_rest__["a" /* RestProvider */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_3__ionic_storage__["b" /* Storage */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__ionic_storage__["b" /* Storage */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* LoadingController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* LoadingController */]) === "function" && _f || Object, typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* ToastController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* ToastController */]) === "function" && _g || Object])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["o" /* ViewController */],
+            __WEBPACK_IMPORTED_MODULE_2__providers_rest_rest__["a" /* RestProvider */],
+            __WEBPACK_IMPORTED_MODULE_3__ionic_storage__["b" /* Storage */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* LoadingController */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* ToastController */]])
     ], QuestionPage);
     return QuestionPage;
-    var _a, _b, _c, _d, _e, _f, _g;
 }(__WEBPACK_IMPORTED_MODULE_4__common_baseui__["a" /* BaseUI */]));
 
 //# sourceMappingURL=question.js.map
@@ -780,10 +816,10 @@ var QuestionPage = (function (_super) {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AnswerPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(17);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__common_baseui__ = __webpack_require__(30);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_storage__ = __webpack_require__(36);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_rest_rest__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__common_baseui__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_storage__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_rest_rest__ = __webpack_require__(23);
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -832,9 +868,9 @@ var AnswerPage = (function (_super) {
     AnswerPage.prototype.ionViewDidLoad = function () {
         console.log('ionViewDidLoad AnswerPage');
     };
-    AnswerPage.prototype.dismiss = function () {
-        this.viewCtrl.dismiss();
-    };
+    // dismiss(){
+    //   this.viewCtrl.dismiss();
+    // }
     AnswerPage.prototype.submit = function () {
         var _this = this;
         this.storage.get('UserId').then(function (val) {
@@ -844,10 +880,10 @@ var AnswerPage = (function (_super) {
                     .subscribe(function (f) {
                     if (f["Status"] == "OK") {
                         loading.dismissAll();
-                        _this.dismiss();
+                        // this.dismiss();
                     }
                     else {
-                        loading.dismissAll();
+                        // loading.dismissAll();
                         _super.prototype.showToast.call(_this, _this.toastCtrl, f["StatusContent"]);
                     }
                 }, function (error) { return _this.errorMessage = error; });
@@ -882,10 +918,10 @@ var AnswerPage = (function (_super) {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return DiscoveryPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(17);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_rest_rest__ = __webpack_require__(24);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__common_baseui__ = __webpack_require__(30);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__details_details__ = __webpack_require__(83);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_rest_rest__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__common_baseui__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__details_details__ = __webpack_require__(63);
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -937,7 +973,7 @@ var DiscoveryPage = (function (_super) {
         this.rest.getQuestions()
             .subscribe(function (q) {
             _this.questions = q;
-            // loading.dismiss();
+            loading.dismiss();
         }, function (error) { return _this.errorMessage = error; });
     };
     DiscoveryPage.prototype.doRefresh = function (refresher) {
@@ -951,10 +987,13 @@ var DiscoveryPage = (function (_super) {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
             selector: 'page-discovery',template:/*ion-inline-start:"F:\ck\project\Ionic\04-01\src\pages\discovery\discovery.html"*/'\n<ion-header>\n\n  <ion-navbar>\n    <ion-title>发现页面</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content>\n<ion-refresher (ionRefresh)="doRefresh($event)" (click)="gotoDetails(q.IdentityId)">\n<ion-refresher-content \npullingIcon="arrow-down"   \npullingText="下拉刷新" \nrefreshingSpinner="circles"\nrefreshingText="数据加载中">\n<!-- pullingIcon="arrow-down"     下拉\npullingText="下拉刷新"   下拉的文字\nrefreshingSpinner="circles"  下拉圈圈\nrefreshingText="数据加载中">下拉时的文字 \n下拉的时候怎么加载数据呢？-->\n\n</ion-refresher-content>\n\n</ion-refresher>\n  <!-- 拿到card 的循环 -->\n  <!-- 发现页面的逻辑添加，主要学习下拉刷新组件的一些事件  -->\n  \n    <ion-card *ngFor="let q of questions">\n        <ion-item>\n          <ion-avatar item-start>\n           <img src="{{q.HeadFace}}">\n          </ion-avatar>\n          <p>{{q.UserNickName}}发表的问题\n            <ion-icon class="more_button" name="more"></ion-icon>\n          </p>\n          </ion-item>\n          <h2>{{q.ContentTitle}}</h2>\n          <ion-card-content>\n            <p>{{q.ContentSunnary}}</p>\n          </ion-card-content>\n          <ion-row> \n          <ion-col col-8 center text-left>\n            <ion-note>\n              {{q.LikeCount}}100赞同&nbsp;&nbsp;&nbsp;&nbsp;20{{q.ComentCount}} &nbsp;评论&nbsp;&nbsp;关注问题\n            </ion-note>\n          </ion-col>\n          <ion-col col-4></ion-col>\n          </ion-row>\n        </ion-card>\n</ion-content>\n'/*ion-inline-end:"F:\ck\project\Ionic\04-01\src\pages\discovery\discovery.html"*/,
         }),
-        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* ModalController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* ModalController */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* LoadingController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* LoadingController */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_2__providers_rest_rest__["a" /* RestProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__providers_rest_rest__["a" /* RestProvider */]) === "function" && _e || Object])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* ModalController */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* LoadingController */],
+            __WEBPACK_IMPORTED_MODULE_2__providers_rest_rest__["a" /* RestProvider */]])
     ], DiscoveryPage);
     return DiscoveryPage;
-    var _a, _b, _c, _d, _e;
 }(__WEBPACK_IMPORTED_MODULE_3__common_baseui__["a" /* BaseUI */]));
 
 //# sourceMappingURL=discovery.js.map
@@ -967,11 +1006,11 @@ var DiscoveryPage = (function (_super) {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return NotificationPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(17);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_storage__ = __webpack_require__(36);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_rest_rest__ = __webpack_require__(24);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__common_baseui__ = __webpack_require__(30);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__details_details__ = __webpack_require__(83);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_storage__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_rest_rest__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__common_baseui__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__details_details__ = __webpack_require__(63);
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -1050,12 +1089,13 @@ var NotificationPage = (function (_super) {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MorePage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__login_login__ = __webpack_require__(270);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_storage__ = __webpack_require__(36);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__common_baseui__ = __webpack_require__(30);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__providers_rest_rest__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_storage__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__common_baseui__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__providers_rest_rest__ = __webpack_require__(23);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__user_user__ = __webpack_require__(272);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__userdatalist_userdatalist__ = __webpack_require__(278);
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -1075,6 +1115,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+
 
 
 
@@ -1113,7 +1154,8 @@ var MorePage = (function (_super) {
         var modal = this.modalCtrl.create(__WEBPACK_IMPORTED_MODULE_2__login_login__["a" /* LoginPage */]);
         modal.present();
     };
-    MorePage.prototype.ionViewDidEnter = function () {
+    // ionViewDidEnter(){  每次 enter 的时候加载一次 改成 只加载第一次 load
+    MorePage.prototype.ionViewDidLoad = function () {
         this.loadUserPage();
     };
     MorePage.prototype.loadUserPage = function () {
@@ -1138,12 +1180,15 @@ var MorePage = (function (_super) {
             }
         });
     };
+    MorePage.prototype.gotoDataList = function (type) {
+        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_7__userdatalist_userdatalist__["a" /* UserdatalistPage */], { "dataType": type });
+    };
     MorePage.prototype.gotoUserPage = function () {
         this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_6__user_user__["a" /* UserPage */]);
     };
     MorePage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-            selector: 'page-more',template:/*ion-inline-start:"F:\ck\project\Ionic\04-01\src\pages\more\more.html"*/'<!--\n  Generated template for the MorePage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar>\n    <ion-title>更多</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content>\n  <div *ngIf="notLogin">\n  <ion-card>\n    <ion-card-header text-center>\n      登陆集智QA，体验更多功能\n    </ion-card-header>\n    <ion-card-content  text-center>\n      <button ion-button outline small (click)="showModal()">登陆/注册</button>\n    </ion-card-content>\n  </ion-card>\n</div>\n  \n  <div *ngIf="logined">\n     <ion-list class="margin-top" >\n       <button ion-item (click)="gotoUserPage()">\n         <ion-avatar item-start>\n           <img src="{{headface}}">\n         </ion-avatar>\n         <h2>{{userinfo.UserNickName}}</h2>\n         <!-- <h2>这是个昵称</h2> -->\n         <p>查看个人主页或编辑简介</p>\n       </button>\n     </ion-list>\n      </div>\n\n</ion-content>\n'/*ion-inline-end:"F:\ck\project\Ionic\04-01\src\pages\more\more.html"*/,
+            selector: 'page-more',template:/*ion-inline-start:"F:\ck\project\Ionic\04-01\src\pages\more\more.html"*/'<!--\n  Generated template for the MorePage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar>\n    <ion-title>更多</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content>\n  <div *ngIf="notLogin">\n  <ion-card>\n    <ion-card-header text-center>\n      登陆集智QA，体验更多功能\n    </ion-card-header>\n    <ion-card-content  text-center>\n      <button ion-button outline small (click)="showModal()">登陆/注册</button>\n    </ion-card-content>\n  </ion-card>\n</div>\n  \n  <div *ngIf="logined">\n     <ion-list class="margin-top" >\n       <ion-list-header>\n         我的集智\n       </ion-list-header>\n\n       <button ion-item (click)="gotoDataList(\'question\')">\n         <ion-icon name="paper" item-start color="primary"></ion-icon>\n         <ion-label>我的提问</ion-label>\n       </button>\n       <button ion-item (click)="gotoDataList(\'favourite\')">\n          <ion-icon name="star" item-start color="orange"></ion-icon>\n          <ion-label>我的关注</ion-label>\n        </button>\n        <button ion-item (click)="gotoDataList(\'answer\')">\n            <ion-icon name="disc" item-start color="secondary"></ion-icon>\n            <ion-label>我的回答</ion-label>\n          </button>\n       <!-- <button ion-item (click)="gotoUserPage()">\n         <ion-avatar item-start>\n           <img src="{{headface}}">\n         </ion-avatar>\n         <h2>{{userinfo.UserNickName}}</h2>\n         <!- <h2>这是个昵称</h2> -->\n         <!-- <p>查看个人主页或编辑简介</p>  -->\n\n     </ion-list>\n      </div>\n\n</ion-content>\n'/*ion-inline-end:"F:\ck\project\Ionic\04-01\src\pages\more\more.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */],
             __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */],
@@ -1165,10 +1210,10 @@ var MorePage = (function (_super) {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LoginPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(17);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__common_baseui__ = __webpack_require__(30);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_rest_rest__ = __webpack_require__(24);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_storage__ = __webpack_require__(36);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__common_baseui__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_rest_rest__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_storage__ = __webpack_require__(31);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__register_register__ = __webpack_require__(271);
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
@@ -1287,9 +1332,9 @@ var LoginPage = (function (_super) {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return RegisterPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(17);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__common_baseui__ = __webpack_require__(30);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_rest_rest__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__common_baseui__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_rest_rest__ = __webpack_require__(23);
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -1404,7 +1449,7 @@ var RegisterPage = (function (_super) {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return UserPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__headface_headface__ = __webpack_require__(273);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1456,10 +1501,10 @@ var UserPage = (function () {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return HeadfacePage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(17);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__common_baseui__ = __webpack_require__(30);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_storage__ = __webpack_require__(36);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_rest_rest__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__common_baseui__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_storage__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_rest_rest__ = __webpack_require__(23);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_native_file__ = __webpack_require__(274);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ionic_native_transfer__ = __webpack_require__(275);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__ionic_native_File_path__ = __webpack_require__(276);
@@ -1676,14 +1721,105 @@ var HeadfacePage = (function (_super) {
 
 /***/ }),
 
-/***/ 279:
+/***/ 278:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return UserdatalistPage; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(14);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var UserdatalistPage = (function () {
+    function UserdatalistPage(navCtrl, navParams) {
+        this.navCtrl = navCtrl;
+        this.navParams = navParams;
+        this.dataType = navParams.get('dataType');
+        switch (this.dataType) {
+            case "question":
+                this.title = "我的提问";
+                break;
+            case "answer":
+                this.title = "我的回答";
+                break;
+            case "favourite":
+                this.title = "我的关注";
+                break;
+        }
+    }
+    UserdatalistPage = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+            selector: 'page-userdatalist',template:/*ion-inline-start:"F:\ck\project\Ionic\04-01\src\pages\userdatalist\userdatalist.html"*/'\n<ion-header>\n  <ion-navbar>\n    <ion-title>{{title}}</ion-title>\n  </ion-navbar>\n</ion-header>\n\n\n<ion-content>\n    <question-list datatype="{{dataType}}"></question-list>\n</ion-content>\n'/*ion-inline-end:"F:\ck\project\Ionic\04-01\src\pages\userdatalist\userdatalist.html"*/,
+        }),
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */]) === "function" && _b || Object])
+    ], UserdatalistPage);
+    return UserdatalistPage;
+    var _a, _b;
+}());
+
+//# sourceMappingURL=userdatalist.js.map
+
+/***/ }),
+
+/***/ 28:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return BaseUI; });
+var BaseUI = (function () {
+    function BaseUI() {
+    }
+    BaseUI.prototype.showLoading = function (loadingCtrl, message) {
+        var loader = loadingCtrl.create({
+            content: message,
+            dismissOnPageChange: true,
+        });
+        loader.present();
+        return loader;
+    };
+    /**
+     *UI层的公用组建
+     *
+     * @protected
+     * @param {ToastController} toastCtrl
+     * @param {string} message
+     * @returns {Toast}
+     * @memberof BaseUI
+     */
+    BaseUI.prototype.showToast = function (toastCtrl, message) {
+        var toast = toastCtrl.create({
+            //    写几个参数
+            message: message,
+            duration: 3000,
+            position: 'bottom',
+        });
+        toast.present();
+        return toast;
+    };
+    return BaseUI;
+}());
+
+//# sourceMappingURL=baseui.js.map
+
+/***/ }),
+
+/***/ 280:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return EmojiProvider; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_common_http__ = __webpack_require__(278);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_common_http__ = __webpack_require__(279);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__(77);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__(78);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1744,55 +1880,13 @@ var EmojiProvider = (function () {
 
 /***/ }),
 
-/***/ 30:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return BaseUI; });
-var BaseUI = (function () {
-    function BaseUI() {
-    }
-    BaseUI.prototype.showLoading = function (loadingCtrl, message) {
-        var loader = loadingCtrl.create({
-            content: message,
-            dismissOnPageChange: true,
-        });
-        loader.present();
-        return loader;
-    };
-    /**
-     *UI层的公用组建
-     *
-     * @protected
-     * @param {ToastController} toastCtrl
-     * @param {string} message
-     * @returns {Toast}
-     * @memberof BaseUI
-     */
-    BaseUI.prototype.showToast = function (toastCtrl, message) {
-        var toast = toastCtrl.create({
-            //    写几个参数
-            message: message,
-            duration: 3000,
-            position: 'bottom',
-        });
-        toast.present();
-        return toast;
-    };
-    return BaseUI;
-}());
-
-//# sourceMappingURL=baseui.js.map
-
-/***/ }),
-
-/***/ 398:
+/***/ 399:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__ = __webpack_require__(399);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_module__ = __webpack_require__(403);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__ = __webpack_require__(400);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_module__ = __webpack_require__(404);
 
 
 Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* platformBrowserDynamic */])().bootstrapModule(__WEBPACK_IMPORTED_MODULE_1__app_module__["a" /* AppModule */]);
@@ -1800,15 +1894,15 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 
 /***/ }),
 
-/***/ 403:
+/***/ 404:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser__ = __webpack_require__(44);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(17);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_component__ = __webpack_require__(440);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_component__ = __webpack_require__(441);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_home_home__ = __webpack_require__(264);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pages_chat_chat__ = __webpack_require__(236);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pages_notification_notification__ = __webpack_require__(268);
@@ -1819,30 +1913,32 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__pages_headface_headface__ = __webpack_require__(273);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__pages_register_register__ = __webpack_require__(271);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__pages_tabs_tabs__ = __webpack_require__(235);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__pages_details_details__ = __webpack_require__(83);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__pages_details_details__ = __webpack_require__(63);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__pages_question_question__ = __webpack_require__(265);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__ionic_native_status_bar__ = __webpack_require__(230);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__ionic_native_splash_screen__ = __webpack_require__(234);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__providers_rest_rest__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__providers_rest_rest__ = __webpack_require__(23);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__angular_http__ = __webpack_require__(130);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__angular_common_http__ = __webpack_require__(278);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__ionic_storage__ = __webpack_require__(36);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__angular_common_http__ = __webpack_require__(279);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__ionic_storage__ = __webpack_require__(31);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__ionic_native_camera__ = __webpack_require__(277);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__ionic_native_file__ = __webpack_require__(274);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__ionic_native_transfer__ = __webpack_require__(275);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__ionic_native_File_path__ = __webpack_require__(276);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__pages_answer_answer__ = __webpack_require__(266);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__pages_chatdetails_chatdetails__ = __webpack_require__(237);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__providers_emoji_emoji__ = __webpack_require__(279);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__components_components_module__ = __webpack_require__(713);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__providers_chatservice_chatservice__ = __webpack_require__(239);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__pipes_relativetime_relativetime__ = __webpack_require__(715);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__pages_userdatalist_userdatalist__ = __webpack_require__(278);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__ionic_native_transfer__ = __webpack_require__(275);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__ionic_native_File_path__ = __webpack_require__(276);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__pages_answer_answer__ = __webpack_require__(266);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__pages_chatdetails_chatdetails__ = __webpack_require__(237);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__providers_emoji_emoji__ = __webpack_require__(280);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__components_components_module__ = __webpack_require__(714);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__providers_chatservice_chatservice__ = __webpack_require__(239);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__pipes_relativetime_relativetime__ = __webpack_require__(717);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -1890,14 +1986,15 @@ var AppModule = (function () {
                 __WEBPACK_IMPORTED_MODULE_7__pages_discovery_discovery__["a" /* DiscoveryPage */],
                 __WEBPACK_IMPORTED_MODULE_13__pages_tabs_tabs__["a" /* TabsPage */],
                 __WEBPACK_IMPORTED_MODULE_9__pages_login_login__["a" /* LoginPage */],
-                __WEBPACK_IMPORTED_MODULE_26__pages_answer_answer__["a" /* AnswerPage */],
+                __WEBPACK_IMPORTED_MODULE_27__pages_answer_answer__["a" /* AnswerPage */],
                 __WEBPACK_IMPORTED_MODULE_10__pages_user_user__["a" /* UserPage */],
                 __WEBPACK_IMPORTED_MODULE_12__pages_register_register__["a" /* RegisterPage */],
                 __WEBPACK_IMPORTED_MODULE_11__pages_headface_headface__["a" /* HeadfacePage */],
                 __WEBPACK_IMPORTED_MODULE_15__pages_question_question__["a" /* QuestionPage */],
-                __WEBPACK_IMPORTED_MODULE_27__pages_chatdetails_chatdetails__["a" /* ChatdetailsPage */],
+                __WEBPACK_IMPORTED_MODULE_28__pages_chatdetails_chatdetails__["a" /* ChatdetailsPage */],
                 __WEBPACK_IMPORTED_MODULE_14__pages_details_details__["a" /* DetailsPage */],
-                __WEBPACK_IMPORTED_MODULE_31__pipes_relativetime_relativetime__["a" /* RelativetimePipe */],
+                __WEBPACK_IMPORTED_MODULE_32__pipes_relativetime_relativetime__["a" /* RelativetimePipe */],
+                __WEBPACK_IMPORTED_MODULE_24__pages_userdatalist_userdatalist__["a" /* UserdatalistPage */],
             ],
             imports: [
                 __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser__["a" /* BrowserModule */],
@@ -1908,10 +2005,11 @@ var AppModule = (function () {
                 }, {
                     links: [
                         { loadChildren: '../pages/details/details.module#DetailsPageModule', name: 'DetailsPage', segment: 'details', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/notification/notification.module#NotificationPageModule', name: 'NotificationPage', segment: 'notification', priority: 'low', defaultHistory: [] }
+                        { loadChildren: '../pages/notification/notification.module#NotificationPageModule', name: 'NotificationPage', segment: 'notification', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/userdatalist/userdatalist.module#UserdatalistPageModule', name: 'UserdatalistPage', segment: 'userdatalist', priority: 'low', defaultHistory: [] }
                     ]
                 }),
-                __WEBPACK_IMPORTED_MODULE_29__components_components_module__["a" /* ComponentsModule */],
+                __WEBPACK_IMPORTED_MODULE_30__components_components_module__["a" /* ComponentsModule */],
                 __WEBPACK_IMPORTED_MODULE_21__ionic_storage__["a" /* IonicStorageModule */].forRoot(),
             ],
             bootstrap: [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["d" /* IonicApp */]],
@@ -1929,8 +2027,9 @@ var AppModule = (function () {
                 __WEBPACK_IMPORTED_MODULE_11__pages_headface_headface__["a" /* HeadfacePage */],
                 __WEBPACK_IMPORTED_MODULE_15__pages_question_question__["a" /* QuestionPage */],
                 __WEBPACK_IMPORTED_MODULE_14__pages_details_details__["a" /* DetailsPage */],
-                __WEBPACK_IMPORTED_MODULE_26__pages_answer_answer__["a" /* AnswerPage */],
-                __WEBPACK_IMPORTED_MODULE_27__pages_chatdetails_chatdetails__["a" /* ChatdetailsPage */],
+                __WEBPACK_IMPORTED_MODULE_27__pages_answer_answer__["a" /* AnswerPage */],
+                __WEBPACK_IMPORTED_MODULE_28__pages_chatdetails_chatdetails__["a" /* ChatdetailsPage */],
+                __WEBPACK_IMPORTED_MODULE_24__pages_userdatalist_userdatalist__["a" /* UserdatalistPage */],
             ],
             providers: [
                 __WEBPACK_IMPORTED_MODULE_16__ionic_native_status_bar__["a" /* StatusBar */],
@@ -1939,10 +2038,10 @@ var AppModule = (function () {
                 __WEBPACK_IMPORTED_MODULE_18__providers_rest_rest__["a" /* RestProvider */],
                 __WEBPACK_IMPORTED_MODULE_22__ionic_native_camera__["a" /* Camera */],
                 __WEBPACK_IMPORTED_MODULE_23__ionic_native_file__["a" /* File */],
-                __WEBPACK_IMPORTED_MODULE_24__ionic_native_transfer__["a" /* Transfer */],
-                __WEBPACK_IMPORTED_MODULE_25__ionic_native_File_path__["a" /* FilePath */],
-                __WEBPACK_IMPORTED_MODULE_28__providers_emoji_emoji__["a" /* EmojiProvider */],
-                __WEBPACK_IMPORTED_MODULE_30__providers_chatservice_chatservice__["a" /* ChatserviceProvider */],
+                __WEBPACK_IMPORTED_MODULE_25__ionic_native_transfer__["a" /* Transfer */],
+                __WEBPACK_IMPORTED_MODULE_26__ionic_native_File_path__["a" /* FilePath */],
+                __WEBPACK_IMPORTED_MODULE_29__providers_emoji_emoji__["a" /* EmojiProvider */],
+                __WEBPACK_IMPORTED_MODULE_31__providers_chatservice_chatservice__["a" /* ChatserviceProvider */],
             ]
         })
     ], AppModule);
@@ -1953,13 +2052,13 @@ var AppModule = (function () {
 
 /***/ }),
 
-/***/ 440:
+/***/ 441:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MyApp; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__ = __webpack_require__(230);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(234);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_tabs_tabs__ = __webpack_require__(235);
@@ -1999,426 +2098,16 @@ var MyApp = (function () {
 
 /***/ }),
 
-/***/ 713:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ComponentsModule; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(17);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__emojipicker_emojipicker__ = __webpack_require__(714);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-
-
-
-var ComponentsModule = (function () {
-    function ComponentsModule() {
-    }
-    ComponentsModule = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["L" /* NgModule */])({
-            declarations: [__WEBPACK_IMPORTED_MODULE_2__emojipicker_emojipicker__["a" /* EmojipickerComponent */]],
-            imports: [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__emojipicker_emojipicker__["a" /* EmojipickerComponent */]),],
-            exports: [__WEBPACK_IMPORTED_MODULE_2__emojipicker_emojipicker__["a" /* EmojipickerComponent */]]
-        })
-    ], ComponentsModule);
-    return ComponentsModule;
-}());
-
-//控制组件 ComponentsModule  导入全局 app.model。
-//   注意引入imports: [IonicPageModule.forChild(EmojipickerComponent)], 
-//# sourceMappingURL=components.module.js.map
-
-/***/ }),
-
-/***/ 714:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* unused harmony export EMOJI_ACCESSOR */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return EmojipickerComponent; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_forms__ = __webpack_require__(27);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_emoji_emoji__ = __webpack_require__(279);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-/**
- * Generated class for the EmojipickerComponent component.
- *
- * See https://angular.io/api/core/Component for more info on Angular
- * Components.
- */
-// 实现emojipickerComponent 的providers
-var EMOJI_ACCESSOR = {
-    provide: __WEBPACK_IMPORTED_MODULE_1__angular_forms__["b" /* NG_VALUE_ACCESSOR */],
-    useExisting: Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_20" /* forwardRef */])(function () { return EmojipickerComponent; }),
-    multi: true,
-};
-var EmojipickerComponent = (function () {
-    function EmojipickerComponent(emojiProvider) {
-        // 定义
-        this.emojiArray = [];
-        this.emojiArray = emojiProvider.getEmojis();
-    }
-    EmojipickerComponent.prototype.writeValue = function (obj) {
-        // Writes a new value to the element.
-        this.content = obj;
-    };
-    EmojipickerComponent.prototype.registerOnChange = function (fn) {
-        this.onChanged = fn;
-        //  新的内容会做一个更改
-        this.setValue(this.content);
-        //  setValue 不仅仅是值做一个更改 还要绑定onChanged的function
-    };
-    EmojipickerComponent.prototype.registerOnTouched = function (fn) {
-        this.onTouched = fn;
-    };
-    // 再次处理新的内容赋值以及函数的绑定
-    EmojipickerComponent.prototype.setValue = function (val) {
-        // 定义 setValue  接受一个参数，返回是 any
-        this.content += val; //对值做变更，赋上值
-        if (this.content) {
-            this.onChanged(this.content);
-        }
-        // 如果这个内容不为空，则把 新的内容onChange给绑定上去
-    };
-    EmojipickerComponent = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-            selector: 'emojipicker',template:/*ion-inline-start:"F:\ck\project\Ionic\04-01\src\components\emojipicker\emojipicker.html"*/'<!-- Generated template for the EmojipickerComponent component -->\n<div class="emoji-picker">\n<div class="emoji-items">\n  <ion-slides pager>\n    \n      <ion-slide *ngFor="let items of emojiArray">\n       <span class="emoji-item" (click)="setValue(item)" *ngFor="let item of items">\n      {{item}}</span>\n      </ion-slide>\n      \n  </ion-slides>\n</div>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             \n</div>\n'/*ion-inline-end:"F:\ck\project\Ionic\04-01\src\components\emojipicker\emojipicker.html"*/,
-            providers: [__WEBPACK_IMPORTED_MODULE_2__providers_emoji_emoji__["a" /* EmojiProvider */]],
-        })
-        // 实现接口
-        ,
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__providers_emoji_emoji__["a" /* EmojiProvider */]])
-    ], EmojipickerComponent);
-    return EmojipickerComponent;
-}());
-
-//# sourceMappingURL=emojipicker.js.map
-
-/***/ }),
-
-/***/ 715:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return RelativetimePipe; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_moment__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_moment___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_moment__);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-
-
-var RelativetimePipe = (function () {
-    function RelativetimePipe() {
-    }
-    RelativetimePipe.prototype.transform = function (value) {
-        var args = [];
-        for (var _i = 1; _i < arguments.length; _i++) {
-            args[_i - 1] = arguments[_i];
-        }
-        return __WEBPACK_IMPORTED_MODULE_1_moment__(value).toNow();
-    };
-    RelativetimePipe = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["V" /* Pipe */])({
-            name: 'relativetime',
-        })
-    ], RelativetimePipe);
-    return RelativetimePipe;
-}());
-
-//# sourceMappingURL=relativetime.js.map
-
-/***/ }),
-
-/***/ 717:
-/***/ (function(module, exports, __webpack_require__) {
-
-var map = {
-	"./af": 280,
-	"./af.js": 280,
-	"./ar": 281,
-	"./ar-dz": 282,
-	"./ar-dz.js": 282,
-	"./ar-kw": 283,
-	"./ar-kw.js": 283,
-	"./ar-ly": 284,
-	"./ar-ly.js": 284,
-	"./ar-ma": 285,
-	"./ar-ma.js": 285,
-	"./ar-sa": 286,
-	"./ar-sa.js": 286,
-	"./ar-tn": 287,
-	"./ar-tn.js": 287,
-	"./ar.js": 281,
-	"./az": 288,
-	"./az.js": 288,
-	"./be": 289,
-	"./be.js": 289,
-	"./bg": 290,
-	"./bg.js": 290,
-	"./bm": 291,
-	"./bm.js": 291,
-	"./bn": 292,
-	"./bn.js": 292,
-	"./bo": 293,
-	"./bo.js": 293,
-	"./br": 294,
-	"./br.js": 294,
-	"./bs": 295,
-	"./bs.js": 295,
-	"./ca": 296,
-	"./ca.js": 296,
-	"./cs": 297,
-	"./cs.js": 297,
-	"./cv": 298,
-	"./cv.js": 298,
-	"./cy": 299,
-	"./cy.js": 299,
-	"./da": 300,
-	"./da.js": 300,
-	"./de": 301,
-	"./de-at": 302,
-	"./de-at.js": 302,
-	"./de-ch": 303,
-	"./de-ch.js": 303,
-	"./de.js": 301,
-	"./dv": 304,
-	"./dv.js": 304,
-	"./el": 305,
-	"./el.js": 305,
-	"./en-au": 306,
-	"./en-au.js": 306,
-	"./en-ca": 307,
-	"./en-ca.js": 307,
-	"./en-gb": 308,
-	"./en-gb.js": 308,
-	"./en-ie": 309,
-	"./en-ie.js": 309,
-	"./en-nz": 310,
-	"./en-nz.js": 310,
-	"./eo": 311,
-	"./eo.js": 311,
-	"./es": 312,
-	"./es-do": 313,
-	"./es-do.js": 313,
-	"./es-us": 314,
-	"./es-us.js": 314,
-	"./es.js": 312,
-	"./et": 315,
-	"./et.js": 315,
-	"./eu": 316,
-	"./eu.js": 316,
-	"./fa": 317,
-	"./fa.js": 317,
-	"./fi": 318,
-	"./fi.js": 318,
-	"./fo": 319,
-	"./fo.js": 319,
-	"./fr": 320,
-	"./fr-ca": 321,
-	"./fr-ca.js": 321,
-	"./fr-ch": 322,
-	"./fr-ch.js": 322,
-	"./fr.js": 320,
-	"./fy": 323,
-	"./fy.js": 323,
-	"./gd": 324,
-	"./gd.js": 324,
-	"./gl": 325,
-	"./gl.js": 325,
-	"./gom-latn": 326,
-	"./gom-latn.js": 326,
-	"./gu": 327,
-	"./gu.js": 327,
-	"./he": 328,
-	"./he.js": 328,
-	"./hi": 329,
-	"./hi.js": 329,
-	"./hr": 330,
-	"./hr.js": 330,
-	"./hu": 331,
-	"./hu.js": 331,
-	"./hy-am": 332,
-	"./hy-am.js": 332,
-	"./id": 333,
-	"./id.js": 333,
-	"./is": 334,
-	"./is.js": 334,
-	"./it": 335,
-	"./it.js": 335,
-	"./ja": 336,
-	"./ja.js": 336,
-	"./jv": 337,
-	"./jv.js": 337,
-	"./ka": 338,
-	"./ka.js": 338,
-	"./kk": 339,
-	"./kk.js": 339,
-	"./km": 340,
-	"./km.js": 340,
-	"./kn": 341,
-	"./kn.js": 341,
-	"./ko": 342,
-	"./ko.js": 342,
-	"./ky": 343,
-	"./ky.js": 343,
-	"./lb": 344,
-	"./lb.js": 344,
-	"./lo": 345,
-	"./lo.js": 345,
-	"./lt": 346,
-	"./lt.js": 346,
-	"./lv": 347,
-	"./lv.js": 347,
-	"./me": 348,
-	"./me.js": 348,
-	"./mi": 349,
-	"./mi.js": 349,
-	"./mk": 350,
-	"./mk.js": 350,
-	"./ml": 351,
-	"./ml.js": 351,
-	"./mr": 352,
-	"./mr.js": 352,
-	"./ms": 353,
-	"./ms-my": 354,
-	"./ms-my.js": 354,
-	"./ms.js": 353,
-	"./my": 355,
-	"./my.js": 355,
-	"./nb": 356,
-	"./nb.js": 356,
-	"./ne": 357,
-	"./ne.js": 357,
-	"./nl": 358,
-	"./nl-be": 359,
-	"./nl-be.js": 359,
-	"./nl.js": 358,
-	"./nn": 360,
-	"./nn.js": 360,
-	"./pa-in": 361,
-	"./pa-in.js": 361,
-	"./pl": 362,
-	"./pl.js": 362,
-	"./pt": 363,
-	"./pt-br": 364,
-	"./pt-br.js": 364,
-	"./pt.js": 363,
-	"./ro": 365,
-	"./ro.js": 365,
-	"./ru": 366,
-	"./ru.js": 366,
-	"./sd": 367,
-	"./sd.js": 367,
-	"./se": 368,
-	"./se.js": 368,
-	"./si": 369,
-	"./si.js": 369,
-	"./sk": 370,
-	"./sk.js": 370,
-	"./sl": 371,
-	"./sl.js": 371,
-	"./sq": 372,
-	"./sq.js": 372,
-	"./sr": 373,
-	"./sr-cyrl": 374,
-	"./sr-cyrl.js": 374,
-	"./sr.js": 373,
-	"./ss": 375,
-	"./ss.js": 375,
-	"./sv": 376,
-	"./sv.js": 376,
-	"./sw": 377,
-	"./sw.js": 377,
-	"./ta": 378,
-	"./ta.js": 378,
-	"./te": 379,
-	"./te.js": 379,
-	"./tet": 380,
-	"./tet.js": 380,
-	"./th": 381,
-	"./th.js": 381,
-	"./tl-ph": 382,
-	"./tl-ph.js": 382,
-	"./tlh": 383,
-	"./tlh.js": 383,
-	"./tr": 384,
-	"./tr.js": 384,
-	"./tzl": 385,
-	"./tzl.js": 385,
-	"./tzm": 386,
-	"./tzm-latn": 387,
-	"./tzm-latn.js": 387,
-	"./tzm.js": 386,
-	"./uk": 388,
-	"./uk.js": 388,
-	"./ur": 389,
-	"./ur.js": 389,
-	"./uz": 390,
-	"./uz-latn": 391,
-	"./uz-latn.js": 391,
-	"./uz.js": 390,
-	"./vi": 392,
-	"./vi.js": 392,
-	"./x-pseudo": 393,
-	"./x-pseudo.js": 393,
-	"./yo": 394,
-	"./yo.js": 394,
-	"./zh-cn": 395,
-	"./zh-cn.js": 395,
-	"./zh-hk": 396,
-	"./zh-hk.js": 396,
-	"./zh-tw": 397,
-	"./zh-tw.js": 397
-};
-function webpackContext(req) {
-	return __webpack_require__(webpackContextResolve(req));
-};
-function webpackContextResolve(req) {
-	var id = map[req];
-	if(!(id + 1)) // check for number or string
-		throw new Error("Cannot find module '" + req + "'.");
-	return id;
-};
-webpackContext.keys = function webpackContextKeys() {
-	return Object.keys(map);
-};
-webpackContext.resolve = webpackContextResolve;
-module.exports = webpackContext;
-webpackContext.id = 717;
-
-/***/ }),
-
-/***/ 83:
+/***/ 63:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return DetailsPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(17);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__common_baseui__ = __webpack_require__(30);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_rest_rest__ = __webpack_require__(24);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_storage__ = __webpack_require__(36);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__common_baseui__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_rest_rest__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_storage__ = __webpack_require__(31);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__answer_answer__ = __webpack_require__(266);
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
@@ -2531,7 +2220,513 @@ var DetailsPage = (function (_super) {
 
 //# sourceMappingURL=details.js.map
 
+/***/ }),
+
+/***/ 714:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ComponentsModule; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__emojipicker_emojipicker__ = __webpack_require__(715);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__question_list_question_list__ = __webpack_require__(716);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+
+
+
+var ComponentsModule = (function () {
+    function ComponentsModule() {
+    }
+    ComponentsModule = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["L" /* NgModule */])({
+            declarations: [__WEBPACK_IMPORTED_MODULE_2__emojipicker_emojipicker__["a" /* EmojipickerComponent */],
+                __WEBPACK_IMPORTED_MODULE_3__question_list_question_list__["a" /* QuestionListComponent */]],
+            imports: [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__emojipicker_emojipicker__["a" /* EmojipickerComponent */]),],
+            exports: [__WEBPACK_IMPORTED_MODULE_2__emojipicker_emojipicker__["a" /* EmojipickerComponent */],
+                __WEBPACK_IMPORTED_MODULE_3__question_list_question_list__["a" /* QuestionListComponent */]]
+        })
+    ], ComponentsModule);
+    return ComponentsModule;
+}());
+
+//控制组件 ComponentsModule  导入全局 app.model。
+//   注意引入imports: [IonicPageModule.forChild(EmojipickerComponent)], 
+//# sourceMappingURL=components.module.js.map
+
+/***/ }),
+
+/***/ 715:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* unused harmony export EMOJI_ACCESSOR */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return EmojipickerComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_forms__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_emoji_emoji__ = __webpack_require__(280);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+/**
+ * Generated class for the EmojipickerComponent component.
+ *
+ * See https://angular.io/api/core/Component for more info on Angular
+ * Components.
+ */
+// 实现emojipickerComponent 的providers
+var EMOJI_ACCESSOR = {
+    provide: __WEBPACK_IMPORTED_MODULE_1__angular_forms__["b" /* NG_VALUE_ACCESSOR */],
+    useExisting: Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_20" /* forwardRef */])(function () { return EmojipickerComponent; }),
+    multi: true,
+};
+var EmojipickerComponent = (function () {
+    function EmojipickerComponent(emojiProvider) {
+        // 定义
+        this.emojiArray = [];
+        this.emojiArray = emojiProvider.getEmojis();
+    }
+    EmojipickerComponent.prototype.writeValue = function (obj) {
+        // Writes a new value to the element.
+        this.content = obj;
+    };
+    EmojipickerComponent.prototype.registerOnChange = function (fn) {
+        this.onChanged = fn;
+        //  新的内容会做一个更改
+        this.setValue(this.content);
+        //  setValue 不仅仅是值做一个更改 还要绑定onChanged的function
+    };
+    EmojipickerComponent.prototype.registerOnTouched = function (fn) {
+        this.onTouched = fn;
+    };
+    // 再次处理新的内容赋值以及函数的绑定
+    EmojipickerComponent.prototype.setValue = function (val) {
+        // 定义 setValue  接受一个参数，返回是 any
+        this.content += val; //对值做变更，赋上值
+        if (this.content) {
+            this.onChanged(this.content);
+        }
+        // 如果这个内容不为空，则把 新的内容onChange给绑定上去
+    };
+    EmojipickerComponent = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+            selector: 'emojipicker',template:/*ion-inline-start:"F:\ck\project\Ionic\04-01\src\components\emojipicker\emojipicker.html"*/'<!-- Generated template for the EmojipickerComponent component -->\n<div class="emoji-picker">\n<div class="emoji-items">\n  <ion-slides pager>\n    \n      <ion-slide *ngFor="let items of emojiArray">\n       <span class="emoji-item" (click)="setValue(item)" *ngFor="let item of items">\n      {{item}}</span>\n      </ion-slide>\n      \n  </ion-slides>\n</div>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             \n</div>\n'/*ion-inline-end:"F:\ck\project\Ionic\04-01\src\components\emojipicker\emojipicker.html"*/,
+            providers: [__WEBPACK_IMPORTED_MODULE_2__providers_emoji_emoji__["a" /* EmojiProvider */]],
+        })
+        // 实现接口
+        ,
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__providers_emoji_emoji__["a" /* EmojiProvider */]])
+    ], EmojipickerComponent);
+    return EmojipickerComponent;
+}());
+
+//# sourceMappingURL=emojipicker.js.map
+
+/***/ }),
+
+/***/ 716:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return QuestionListComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pages_common_baseui__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_rest_rest__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pages_details_details__ = __webpack_require__(63);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_storage__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_ionic_angular__ = __webpack_require__(14);
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+var QuestionListComponent = (function (_super) {
+    __extends(QuestionListComponent, _super);
+    function QuestionListComponent(navCtrl, viewCtrl, navParams, modalCtrl, rest, toast, storage, loadingCtrl) {
+        var _this = _super.call(this) || this;
+        _this.navCtrl = navCtrl;
+        _this.viewCtrl = viewCtrl;
+        _this.navParams = navParams;
+        _this.modalCtrl = modalCtrl;
+        _this.rest = rest;
+        _this.toast = toast;
+        _this.storage = storage;
+        _this.loadingCtrl = loadingCtrl;
+        return _this;
+    }
+    // 如何向组件传递参数@Input( 'datatype') dataSourceType;
+    QuestionListComponent.prototype.ngAfterContentInit = function () {
+        var _this = this;
+        this.storage.get('UserId').then(function (val) {
+            if (val != null) {
+                //加载用户数据
+                var loading = _super.prototype.showLoading.call(_this, _this.loadingCtrl, "加载中。。。");
+                _this.rest.getUserQuestionList(val, _this.dataSourceType)
+                    .subscribe(function (q) {
+                    _this.questions = q;
+                    loading.dismissAll();
+                }, function (error) { return _this.errorMessage = error; });
+            }
+        });
+    };
+    QuestionListComponent.prototype.gotoDetails = function (questionId) {
+        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_3__pages_details_details__["a" /* DetailsPage */], { id: questionId });
+    };
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["E" /* Input */])('datatype'),
+        __metadata("design:type", Object)
+    ], QuestionListComponent.prototype, "dataSourceType", void 0);
+    QuestionListComponent = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+            selector: 'question-list',template:/*ion-inline-start:"F:\ck\project\Ionic\04-01\src\components\question-list\question-list.html"*/'<ion-list>\n  <ion-item *ngFor="let q of questions" (click)="gotoDetails(q.IdentityId)">\n    <h2>{{q.ContentTitle}}</h2>\n    <p>{{q.ContentSummary}}</p>\n  </ion-item>\n</ion-list>'/*ion-inline-end:"F:\ck\project\Ionic\04-01\src\components\question-list\question-list.html"*/
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_5_ionic_angular__["j" /* NavController */],
+            __WEBPACK_IMPORTED_MODULE_5_ionic_angular__["o" /* ViewController */],
+            __WEBPACK_IMPORTED_MODULE_5_ionic_angular__["k" /* NavParams */],
+            __WEBPACK_IMPORTED_MODULE_5_ionic_angular__["i" /* ModalController */],
+            __WEBPACK_IMPORTED_MODULE_2__providers_rest_rest__["a" /* RestProvider */],
+            __WEBPACK_IMPORTED_MODULE_5_ionic_angular__["n" /* ToastController */],
+            __WEBPACK_IMPORTED_MODULE_4__ionic_storage__["b" /* Storage */],
+            __WEBPACK_IMPORTED_MODULE_5_ionic_angular__["h" /* LoadingController */]])
+    ], QuestionListComponent);
+    return QuestionListComponent;
+}(__WEBPACK_IMPORTED_MODULE_1__pages_common_baseui__["a" /* BaseUI */]));
+
+//# sourceMappingURL=question-list.js.map
+
+/***/ }),
+
+/***/ 717:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return RelativetimePipe; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_moment__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_moment___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_moment__);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+
+var RelativetimePipe = (function () {
+    function RelativetimePipe() {
+    }
+    RelativetimePipe.prototype.transform = function (value) {
+        var args = [];
+        for (var _i = 1; _i < arguments.length; _i++) {
+            args[_i - 1] = arguments[_i];
+        }
+        return __WEBPACK_IMPORTED_MODULE_1_moment__(value).toNow();
+    };
+    RelativetimePipe = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["V" /* Pipe */])({
+            name: 'relativetime',
+        })
+    ], RelativetimePipe);
+    return RelativetimePipe;
+}());
+
+//# sourceMappingURL=relativetime.js.map
+
+/***/ }),
+
+/***/ 719:
+/***/ (function(module, exports, __webpack_require__) {
+
+var map = {
+	"./af": 281,
+	"./af.js": 281,
+	"./ar": 282,
+	"./ar-dz": 283,
+	"./ar-dz.js": 283,
+	"./ar-kw": 284,
+	"./ar-kw.js": 284,
+	"./ar-ly": 285,
+	"./ar-ly.js": 285,
+	"./ar-ma": 286,
+	"./ar-ma.js": 286,
+	"./ar-sa": 287,
+	"./ar-sa.js": 287,
+	"./ar-tn": 288,
+	"./ar-tn.js": 288,
+	"./ar.js": 282,
+	"./az": 289,
+	"./az.js": 289,
+	"./be": 290,
+	"./be.js": 290,
+	"./bg": 291,
+	"./bg.js": 291,
+	"./bm": 292,
+	"./bm.js": 292,
+	"./bn": 293,
+	"./bn.js": 293,
+	"./bo": 294,
+	"./bo.js": 294,
+	"./br": 295,
+	"./br.js": 295,
+	"./bs": 296,
+	"./bs.js": 296,
+	"./ca": 297,
+	"./ca.js": 297,
+	"./cs": 298,
+	"./cs.js": 298,
+	"./cv": 299,
+	"./cv.js": 299,
+	"./cy": 300,
+	"./cy.js": 300,
+	"./da": 301,
+	"./da.js": 301,
+	"./de": 302,
+	"./de-at": 303,
+	"./de-at.js": 303,
+	"./de-ch": 304,
+	"./de-ch.js": 304,
+	"./de.js": 302,
+	"./dv": 305,
+	"./dv.js": 305,
+	"./el": 306,
+	"./el.js": 306,
+	"./en-au": 307,
+	"./en-au.js": 307,
+	"./en-ca": 308,
+	"./en-ca.js": 308,
+	"./en-gb": 309,
+	"./en-gb.js": 309,
+	"./en-ie": 310,
+	"./en-ie.js": 310,
+	"./en-nz": 311,
+	"./en-nz.js": 311,
+	"./eo": 312,
+	"./eo.js": 312,
+	"./es": 313,
+	"./es-do": 314,
+	"./es-do.js": 314,
+	"./es-us": 315,
+	"./es-us.js": 315,
+	"./es.js": 313,
+	"./et": 316,
+	"./et.js": 316,
+	"./eu": 317,
+	"./eu.js": 317,
+	"./fa": 318,
+	"./fa.js": 318,
+	"./fi": 319,
+	"./fi.js": 319,
+	"./fo": 320,
+	"./fo.js": 320,
+	"./fr": 321,
+	"./fr-ca": 322,
+	"./fr-ca.js": 322,
+	"./fr-ch": 323,
+	"./fr-ch.js": 323,
+	"./fr.js": 321,
+	"./fy": 324,
+	"./fy.js": 324,
+	"./gd": 325,
+	"./gd.js": 325,
+	"./gl": 326,
+	"./gl.js": 326,
+	"./gom-latn": 327,
+	"./gom-latn.js": 327,
+	"./gu": 328,
+	"./gu.js": 328,
+	"./he": 329,
+	"./he.js": 329,
+	"./hi": 330,
+	"./hi.js": 330,
+	"./hr": 331,
+	"./hr.js": 331,
+	"./hu": 332,
+	"./hu.js": 332,
+	"./hy-am": 333,
+	"./hy-am.js": 333,
+	"./id": 334,
+	"./id.js": 334,
+	"./is": 335,
+	"./is.js": 335,
+	"./it": 336,
+	"./it.js": 336,
+	"./ja": 337,
+	"./ja.js": 337,
+	"./jv": 338,
+	"./jv.js": 338,
+	"./ka": 339,
+	"./ka.js": 339,
+	"./kk": 340,
+	"./kk.js": 340,
+	"./km": 341,
+	"./km.js": 341,
+	"./kn": 342,
+	"./kn.js": 342,
+	"./ko": 343,
+	"./ko.js": 343,
+	"./ky": 344,
+	"./ky.js": 344,
+	"./lb": 345,
+	"./lb.js": 345,
+	"./lo": 346,
+	"./lo.js": 346,
+	"./lt": 347,
+	"./lt.js": 347,
+	"./lv": 348,
+	"./lv.js": 348,
+	"./me": 349,
+	"./me.js": 349,
+	"./mi": 350,
+	"./mi.js": 350,
+	"./mk": 351,
+	"./mk.js": 351,
+	"./ml": 352,
+	"./ml.js": 352,
+	"./mr": 353,
+	"./mr.js": 353,
+	"./ms": 354,
+	"./ms-my": 355,
+	"./ms-my.js": 355,
+	"./ms.js": 354,
+	"./my": 356,
+	"./my.js": 356,
+	"./nb": 357,
+	"./nb.js": 357,
+	"./ne": 358,
+	"./ne.js": 358,
+	"./nl": 359,
+	"./nl-be": 360,
+	"./nl-be.js": 360,
+	"./nl.js": 359,
+	"./nn": 361,
+	"./nn.js": 361,
+	"./pa-in": 362,
+	"./pa-in.js": 362,
+	"./pl": 363,
+	"./pl.js": 363,
+	"./pt": 364,
+	"./pt-br": 365,
+	"./pt-br.js": 365,
+	"./pt.js": 364,
+	"./ro": 366,
+	"./ro.js": 366,
+	"./ru": 367,
+	"./ru.js": 367,
+	"./sd": 368,
+	"./sd.js": 368,
+	"./se": 369,
+	"./se.js": 369,
+	"./si": 370,
+	"./si.js": 370,
+	"./sk": 371,
+	"./sk.js": 371,
+	"./sl": 372,
+	"./sl.js": 372,
+	"./sq": 373,
+	"./sq.js": 373,
+	"./sr": 374,
+	"./sr-cyrl": 375,
+	"./sr-cyrl.js": 375,
+	"./sr.js": 374,
+	"./ss": 376,
+	"./ss.js": 376,
+	"./sv": 377,
+	"./sv.js": 377,
+	"./sw": 378,
+	"./sw.js": 378,
+	"./ta": 379,
+	"./ta.js": 379,
+	"./te": 380,
+	"./te.js": 380,
+	"./tet": 381,
+	"./tet.js": 381,
+	"./th": 382,
+	"./th.js": 382,
+	"./tl-ph": 383,
+	"./tl-ph.js": 383,
+	"./tlh": 384,
+	"./tlh.js": 384,
+	"./tr": 385,
+	"./tr.js": 385,
+	"./tzl": 386,
+	"./tzl.js": 386,
+	"./tzm": 387,
+	"./tzm-latn": 388,
+	"./tzm-latn.js": 388,
+	"./tzm.js": 387,
+	"./uk": 389,
+	"./uk.js": 389,
+	"./ur": 390,
+	"./ur.js": 390,
+	"./uz": 391,
+	"./uz-latn": 392,
+	"./uz-latn.js": 392,
+	"./uz.js": 391,
+	"./vi": 393,
+	"./vi.js": 393,
+	"./x-pseudo": 394,
+	"./x-pseudo.js": 394,
+	"./yo": 395,
+	"./yo.js": 395,
+	"./zh-cn": 396,
+	"./zh-cn.js": 396,
+	"./zh-hk": 397,
+	"./zh-hk.js": 397,
+	"./zh-tw": 398,
+	"./zh-tw.js": 398
+};
+function webpackContext(req) {
+	return __webpack_require__(webpackContextResolve(req));
+};
+function webpackContextResolve(req) {
+	var id = map[req];
+	if(!(id + 1)) // check for number or string
+		throw new Error("Cannot find module '" + req + "'.");
+	return id;
+};
+webpackContext.keys = function webpackContextKeys() {
+	return Object.keys(map);
+};
+webpackContext.resolve = webpackContextResolve;
+module.exports = webpackContext;
+webpackContext.id = 719;
+
 /***/ })
 
-},[398]);
+},[399]);
 //# sourceMappingURL=main.js.map

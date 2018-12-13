@@ -40,9 +40,9 @@ errorMessage:any;
     console.log('ionViewDidLoad QuestionPage');
   }
 
-  dismiss(){
-    this.viewCtrl.dismiss();
-  }
+  // dismiss(){
+  //   this.viewCtrl.dismiss();
+  // }
 
   submitQuestion(){
     // 先获取userid  需要做一些构造

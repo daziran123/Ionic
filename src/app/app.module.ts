@@ -22,7 +22,7 @@ import { HttpClientModule } from '@angular/common/http';
 import {IonicStorageModule } from '@ionic/storage';
 import {Camera} from '@ionic-native/camera';
 import { File } from '@ionic-native/file';
-
+import {UserdatalistPage} from '../pages/userdatalist/userdatalist';
 import {Transfer,TransferObject} from '@ionic-native/transfer';
 // TransferObject
 import {FilePath} from '@ionic-native/File-path';
@@ -50,6 +50,7 @@ import { RelativetimePipe } from '../pipes/relativetime/relativetime';
     ChatdetailsPage,
     DetailsPage,
     RelativetimePipe,
+    UserdatalistPage,
     
     
   ],
@@ -81,6 +82,7 @@ backButtonText:'返回',
     DetailsPage,
     AnswerPage,
     ChatdetailsPage,
+    UserdatalistPage,
   
 
   ],

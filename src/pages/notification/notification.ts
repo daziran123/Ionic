@@ -20,6 +20,7 @@ import { DetailsPage } from '../details/details';
 export class NotificationPage extends BaseUI {
   errorMessage: any;
   notificationList:string[];
+  loading: any;
 
 
   constructor(
@@ -41,7 +42,7 @@ export class NotificationPage extends BaseUI {
   .subscribe(
   n=>{
     this.notificationList=n;
-
+    
     loading.dismissAll();
   },error=>this.errorMessage=<any>error);
       }

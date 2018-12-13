@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import {  NavController, NavParams,ModalController,LoadingController } from 'ionic-angular';
 import { LoginPage } from '../login/login';
-import { Storage } from '@ionic/storage'
+import { Storage } from '@ionic/storage';
 import { BaseUI } from '../common/baseui';
 import { RestProvider } from '../../providers/rest/rest';
 import {UserPage} from '../user/user';
+import {UserdatalistPage} from '../userdatalist/userdatalist';
 /**
  * Generated class for the MorePage page.
  *
@@ -41,8 +42,9 @@ showModal(){
 const modal = this.modalCtrl.create(LoginPage);
 modal.present();
 }
-ionViewDidEnter(){
-  this. loadUserPage();
+// ionViewDidEnter(){  每次 enter 的时候加载一次 改成 只加载第一次 load
+ionViewDidLoad(){ 
+  this.loadUserPage();
 }
 
 
@@ -73,6 +75,9 @@ ionViewDidEnter(){
   });
 }
 
+gotoDataList(type){
+  this.navCtrl.push(UserdatalistPage,{"dataType":type})
+}
 gotoUserPage(){
   this.navCtrl.push(UserPage)
 }
