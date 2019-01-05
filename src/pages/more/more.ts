@@ -7,7 +7,7 @@ import { RestProvider } from '../../providers/rest/rest';
 import {UserPage} from '../user/user';
 import {UserdatalistPage} from '../userdatalist/userdatalist';
 import { SettingsProvider } from '../../providers/settings/settings';
-
+import {ScanPage} from '../scan/scan'
 
 @Component({
   selector: 'page-more',
@@ -80,6 +80,15 @@ gotoUserPage(){
   this.navCtrl.push(UserPage)
 }
 
+/**
+ *+跳转到扫描二维码的也页面上，加上animatefalse的参数是为了
+ *相机能够在屏幕中显示，如果不加，相机就出不来。
+ *animate的参数默认值为true
+ * @memberof MorePage
+ */
+gotoScanQrCode(){
+  this.navCtrl.push(ScanPage,null,{"animate":false});
+}
 toggleChangeTheme(){
 if(this.selectedTheme === 'dark-theme')
 { 

@@ -1,15 +1,15 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {  NavController, NavParams } from 'ionic-angular';
 
 
-@IonicPage()
+// @IonicPage()
 @Component({
   selector: 'page-userdatalist',
   templateUrl: 'userdatalist.html',
 })
 export class UserdatalistPage {
   dataType: string;
-  title: string;y
+  title: string;
 
   constructor(
     public navCtrl: NavController, 

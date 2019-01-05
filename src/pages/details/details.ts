@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { 
-  IonicPage, 
+  // IonicPage, 
   NavController,
   NavParams,
   ToastController,
@@ -19,7 +19,7 @@ import {AnswerPage} from '../answer/answer';
  * Ionic pages and navigation.
  */
 
-@IonicPage()
+// @IonicPage()
 @Component({
   selector: 'page-details',
   templateUrl: 'details.html',

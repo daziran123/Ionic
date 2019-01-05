@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { 
-  IonicPage,
+  // IonicPage,
   NavController, 
   NavParams,
   LoadingController,
@@ -12,7 +12,7 @@ import { DetailsPage } from '../details/details';
 
 
 // 通知的消息后台保存回答，关注的时候自动生成的消息数据，前台只要通过api获取即可
-@IonicPage()
+// @IonicPage()
 @Component({
   selector: 'page-notification',
   templateUrl: 'notification.html',

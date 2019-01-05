@@ -53,17 +53,23 @@
 
      </ion-list>
 
-     <ion-list class="marginTop">
+     <ion-list class="margin-top">
        <ion-list-header>
          设置
        </ion-list-header>
-       <ion-item>
-         
+       <ion-item> 
          <ion-icon name="cloudy-night" item-start color = "purple"></ion-icon>
          <ion-label>夜间模式</ion-label>
          <ion-toggle color="purple" (ionChange)="toggleChangeTheme()"></ion-toggle>
        </ion-item>
+
+       
+         <button ion-item (click)="gotoScanQrCode()">
+          <ion-icon name="qr-scanner" item-start color = "dark"></ion-icon>
+          <ion-label>扫描二维码</ion-label>
+         </button>
      </ion-list>
+     
       </div>
 
 </ion-content>

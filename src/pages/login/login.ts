@@ -57,7 +57,7 @@ login(){
             this.storage.set('UserId',f["UserId"]);   //x先存储userID 
              loading.dismiss(); //储存好代码后加载中的界面dismiss 掉
              //弹出的login 页面也要dismiss 掉
-             this.dismiss();
+            //  this.dismiss();
 
           }
           else{

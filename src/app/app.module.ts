@@ -22,8 +22,12 @@ import { HttpClientModule } from '@angular/common/http';
 import {IonicStorageModule } from '@ionic/storage';
 import {Camera} from '@ionic-native/camera';
 import { File } from '@ionic-native/file';
+import { QRScanner} from '@ionic-native/qr-scanner';
+// , QRScannerStatus 
+
 import {UserdatalistPage} from '../pages/userdatalist/userdatalist';
-import {Transfer,TransferObject} from '@ionic-native/transfer';
+// import {Transfer,TransferObject} from '@ionic-native/transfer';
+import {Transfer} from '@ionic-native/transfer';
 // TransferObject
 import {FilePath} from '@ionic-native/File-path';
 import { AnswerPage } from '../pages/answer/answer';
@@ -33,6 +37,7 @@ import {ComponentsModule} from '../components/components.module'
 import { ChatserviceProvider } from '../providers/chatservice/chatservice';
 import { RelativetimePipe } from '../pipes/relativetime/relativetime';
 import { SettingsProvider } from '../providers/settings/settings';
+import { ScanPage } from '../pages/scan/scan';
 @NgModule({
   declarations: [
     MyApp,
@@ -48,6 +53,7 @@ import { SettingsProvider } from '../providers/settings/settings';
     RegisterPage,
     HeadfacePage,
     QuestionPage,
+    ScanPage,
     ChatdetailsPage,
     DetailsPage,
     RelativetimePipe,
@@ -84,12 +90,13 @@ backButtonText:'返回',
     AnswerPage,
     ChatdetailsPage,
     UserdatalistPage,
-  
+    ScanPage
 
   ],
   providers: [
     StatusBar,
     SplashScreen,
+    QRScanner,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     RestProvider,
     Camera,
